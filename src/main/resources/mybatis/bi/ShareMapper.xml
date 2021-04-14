@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oceanus.bi.mapper.ShareMapper">
+
+    <insert id="insertShare" parameterType="com.oceanus.bi.domain.Share">
+        insert into bi_share_dashboard
+            (to_user_id,
+            share_user_id,
+            dashboard_id,
+            share_date)
+        values
+        <foreach collection="list" item="item" index= "index" separator =",">
+            (
+            ${item.to_user_id},
+            ${item.share_user_id},
+            '${item.dashboard_id}',
+            '${item.share_date}')
+        </foreach>
+    </insert>
+    <!--查询用户，暂时没有考虑SAAS，后期SAAS靠加上企业编号进行过滤，只能分享给企业内部人员-->
+    <select id="selectShareUserList" resultType="com.oceanus.system.system.domain.SysUser">
+        select
+            user_id as userId,
+            user_name as userName,
+            nick_name as nickName,
+            email as email,
+            phonenumber as phonenumber
+        from sys_user
+    </select>
+
+</mapper>

@@ -1,0 +1,191 @@
+{
+  "id": "1933425",
+  "name": "doris",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "17163427",
+      "name": "report",
+      "font_class": "baobiao",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "17163428",
+      "name": "dashboard",
+      "font_class": "yibiaopan",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "15811931",
+      "name": "shiwu",
+      "font_class": "shiwuguanli",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "15810748",
+      "name": "group",
+      "font_class": "group",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "15810749",
+      "name": "instance",
+      "font_class": "shili",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "15810750",
+      "name": "Statistic",
+      "font_class": "tongji",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "15810751",
+      "name": "current",
+      "font_class": "dangqianbanben",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "15810752",
+      "name": "Stocks and brokerages ",
+      "font_class": "Stocksandbrokerages",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "15810753",
+      "name": "auth",
+      "font_class": "renzheng",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "15810754",
+      "name": "load",
+      "font_class": "load",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "15810755",
+      "name": "balance",
+      "font_class": "fuzaijunheng",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "15810756",
+      "name": "db",
+      "font_class": "db",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "15810757",
+      "name": "job",
+      "font_class": "job",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "15810758",
+      "name": "log",
+      "font_class": "rizhi",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "15810759",
+      "name": "help",
+      "font_class": "bangzhu",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "15810760",
+      "name": "monitor",
+      "font_class": "jiankong",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "15810761",
+      "name": "ha",
+      "font_class": "ahasyingyonggaokeyong",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "15810762",
+      "name": "resources",
+      "font_class": "ziyuan30",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "15810763",
+      "name": "variable",
+      "font_class": "pingtaibianliang",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "15810764",
+      "name": "session",
+      "font_class": "agent_session",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "15810765",
+      "name": "backend",
+      "font_class": "jiedian",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "15810766",
+      "name": "query",
+      "font_class": "chaxun",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "15810767",
+      "name": "home",
+      "font_class": "shouye",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "15810768",
+      "name": "system",
+      "font_class": "xitong",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "15810769",
+      "name": "frontend",
+      "font_class": "guanli",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "15810770",
+      "name": "task",
+      "font_class": "task",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    }
+  ]
+}

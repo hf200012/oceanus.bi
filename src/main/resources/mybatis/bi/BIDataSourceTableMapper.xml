@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oceanus.bi.mapper.BIDataSourceTableMapper">
+
+
+    <insert id="insertDatasourceTable" parameterType="com.oceanus.bi.domain.DatasourceTable">
+        <selectKey keyProperty="table_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into bi_datasource_table
+            ( table_name,
+             created_at,
+             updated_at,
+             creator_id,
+             source_id,
+             table_alias,
+             status )
+        values
+            ('${table_name}',
+             '${created_at}',
+             '${updated_at}',
+             ${creator_id},
+             ${source_id},
+             '${table_alias}',
+             ${status} )
+    </insert>
+
+    <update id="updateDatasourceTable" parameterType="com.oceanus.bi.domain.DatasourceTable">
+        update bi_datasource_table
+        <set>
+            <if test="table_alias != null and table_alias != ''">table_alias='${table_alias}', </if>
+        </set>
+        where table_id=${table_id}
+    </update>
+
+    <update id="updateDatasourceTableAlise" parameterType="java.util.Map">
+        update bi_datasource_table
+        <set>
+            <if test="table_alias != null and table_alias != ''">table_alias='${table_alias}', </if>
+        </set>
+        where table_id=${table_id}
+    </update>
+
+    <delete id="deleteDatasourceTable"  parameterType="java.util.Map">
+        delete from bi_datasource_table where table_id=${table_id}
+    </delete>
+
+    <delete id="deleteDatasourceTableBySource"  parameterType="java.util.Map">
+        delete from bi_datasource_table where source_id=${source_id}
+    </delete>
+
+    <select id="selectTableBySourceId" parameterType="java.util.Map" resultType="com.oceanus.bi.domain.DatasourceTable">
+        select
+            table_name,
+            table_alias,
+            table_id
+        from bi_datasource_table
+        where source_id=${source_id}
+    </select>
+
+    <!--插入表对应字段信息-->
+    <insert id="insertDataSourceTableField" parameterType="com.oceanus.bi.domain.TableField">
+        insert into bi_datasource_tablefield (
+             table_id
+            ,field_name
+            ,field_cname
+            ,field_type
+            ,is_empty
+            ,createdate
+            ,create_user_id
+            ,create_user_name
+            ,is_enable
+            ,field_lenght
+            ) values
+          <foreach collection="list" item="item" index= "index" separator =",">
+            (
+             ${item.table_id}
+            ,'${item.field_name}'
+            ,'${item.field_cname}'
+            ,'${item.field_type}'
+            ,${item.is_empty}
+            ,'${item.createdate}'
+            ,${item.create_user_id}
+            ,'${item.create_user_name}'
+            ,${item.is_enable}
+            ,'${item.field_lenght}'
+            )
+          </foreach>
+    </insert>
+
+    <select id="selectTabelFieldByTableNameAndSource"  parameterType="java.util.Map"  resultType="com.oceanus.bi.domain.TableField">
+        select
+             a.field_id
+            ,a.table_id
+            ,a.field_name
+            ,a.field_cname
+            ,a.field_type
+            ,a.is_empty
+            ,a.createdate
+            ,a.create_user_id
+            ,a.create_user_name
+            ,a.is_enable
+            ,a.field_lenght
+        from bi_datasource_tablefield a
+        left join bi_datasource_table b on a.table_id=b.table_id
+        where b.table_name='${table_name}' and b.source_id=${source_id}
+    </select>
+
+
+    <select id="selectTabelFieldByTableId"  parameterType="java.util.Map"  resultType="com.oceanus.bi.domain.TableField">
+        select
+             a.field_id
+            ,a.table_id
+            ,a.field_name
+            ,a.field_cname
+            ,a.field_type
+            ,a.is_empty
+            ,a.createdate
+            ,a.create_user_id
+            ,a.create_user_name
+            ,a.is_enable
+            ,a.field_lenght
+        from bi_datasource_tablefield a
+        where table_id=${table_id}
+    </select>
+
+    <select id="selectTabelFieldBySourceAndTableName"  parameterType="java.util.Map"  resultType="com.oceanus.bi.domain.TableField">
+        select
+             field_id
+            ,table_id
+            ,field_name
+            ,field_cname
+            ,field_type
+            ,is_empty
+            ,createdate
+            ,create_user_id
+            ,create_user_name
+            ,is_enable
+            ,field_lenght
+        from bi_datasource_tablefield
+        where table_id in (select table_id from bi_datasource_table where table_name='${table_name}' and source_id=${source_id} )
+    </select>
+
+
+    <update id="updateDatasourceTableField" parameterType="com.oceanus.bi.domain.TableField">
+        update bi_datasource_tablefield
+        <set>
+            <if test="field_cname != null and field_cname != ''">field_cname='${field_cname}',</if>
+        </set>
+        where field_id=${field_id}
+    </update>
+
+    <delete id="deleteDatasourceTableFieldByTableId"  parameterType="java.util.Map">
+        delete from bi_datasource_tablefield where table_id=${table_id}
+    </delete>
+
+    <delete id="deleteDatasourceTableFieldByDatasourceId"  parameterType="java.util.Map">
+        delete from bi_datasource_tablefield where table_id in (select table_id from bi_datasource_table where source_id=${source_id})
+    </delete>
+</mapper>

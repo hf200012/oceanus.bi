@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oceanus.bi.mapper.BIDataSourceMapper">
+
+    <insert id="insertDatasource" parameterType="com.oceanus.bi.domain.Datasource">
+        insert into bi_datasource
+        (conn_url
+        ,username
+        ,password
+        ,db_type
+        ,created_at
+        ,updated_at
+        ,creator_id
+        ,is_private
+        ,status
+        ,base_alias
+        ,driver_class
+        ,databasename)
+        values
+        ('${conn_url}'
+        ,'${username}'
+        ,'${password}'
+        ,'${db_type}'
+        ,'${created_at}'
+        ,'${updated_at}'
+        ,${creator_id}
+        ,${is_private}
+        ,${status}
+        ,'${base_alias}'
+        ,'${driver_class}'
+        ,'${databasename}')
+    </insert>
+
+    <update id="updateDatasource" parameterType="com.oceanus.bi.domain.Datasource">
+        update bi_datasource
+        <set>
+            <if test="username != null and username != ''">username='${username}', </if>
+            <if test="password != null and password != ''">password='${password}', </if>
+            <if test="databasename != null and databasename != ''">databasename='${databasename}', </if>
+            <if test="conn_url!= null and conn_url != ''">conn_url='${conn_url}', </if>
+            <if test="db_type!= null and db_type != ''">db_type='${db_type}', </if>
+            <if test="driver_class!= null and driver_class != ''">driver_class='${driver_class}', </if>
+            <if test="updated_at != null and updated_at != ''">updated_at='${updated_at}', </if>
+            <if test="base_alias!= null and base_alias != ''">base_alias='${base_alias}', </if>
+        </set>
+        where source_id=${source_id}
+    </update>
+
+    <delete id="deleteDatasource"  parameterType="java.util.Map">
+        delete from bi_datasource where source_id=${source_id}
+    </delete>
+
+    <select id="selectDatasourceByUser" parameterType="java.util.Map" resultType="com.oceanus.bi.domain.Datasource">
+        select
+             conn_url
+            ,username
+            ,password
+            ,db_type
+            ,created_at
+            ,updated_at
+            ,creator_id
+            ,is_private
+            ,status
+            ,base_alias
+            ,driver_class
+            ,source_id
+            ,databasename
+        from  bi_datasource
+        where creator_id=${creator_id}
+    </select>
+
+    <select id="selectDatasourceById" parameterType="java.util.Map" resultType="java.util.Map">
+        select
+         username as user_name
+        ,driver_class as driver_classname
+        ,password as pass_word
+        ,conn_url as conn_url
+        ,db_type
+        ,source_id
+        ,created_at
+        ,updated_at
+        ,creator_id
+        ,is_private
+        ,status
+        ,databasename
+        ,base_alias from bi_datasource where source_id=${source_id}
+    </select>
+
+    <select id="getDatasourceById" parameterType="java.util.Map" resultType="com.oceanus.bi.domain.Datasource">
+        select
+             source_id
+            ,username
+            ,username
+            ,driver_class
+            ,password
+            ,conn_url
+            ,db_type
+            ,source_id
+            ,created_at
+            ,updated_at
+            ,creator_id
+            ,is_private
+            ,status
+            ,databasename
+            ,base_alias
+        from bi_datasource
+        where source_id=${source_id}
+    </select>
+    <select id="getDatasourceByChartId" parameterType="java.util.Map" resultType="com.oceanus.bi.domain.Datasource">
+        select
+             username
+            ,driver_class
+            ,password
+            ,conn_url
+            ,db_type
+            ,source_id
+            ,created_at
+            ,updated_at
+            ,creator_id
+            ,is_private
+            ,status
+            ,databasename
+            ,base_alias
+        from bi_datasource
+        where source_id in (select source_id from bi_chart where chart_id='${chart_id}')
+    </select>
+
+
+</mapper>

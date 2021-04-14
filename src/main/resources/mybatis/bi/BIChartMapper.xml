@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oceanus.bi.mapper.BIChartMapper">
+
+    <insert id="insertBiChart" parameterType="com.oceanus.bi.domain.Chart">
+        insert into bi_chart
+            (chart_id,
+            chart_name,
+            chart_desc,
+            content,
+            is_private,
+            status,
+            created_at,
+            creator_id,
+            source_id)
+        values
+            ('${chart_id}',
+            '${chart_name}',
+            '${chart_desc}',
+            '${chartContent}',
+            ${is_private},
+            ${status},
+            '${created_at}',
+            ${creator_id},
+            ${source_id})
+    </insert>
+
+    <update id="updateBiChart" parameterType="com.oceanus.bi.domain.Chart">
+        update bi_chart
+        <set>
+            <if test="chart_name != null and chart_name != ''">chart_name='${chart_name}', </if>
+            <if test="chart_desc != null and chart_desc != ''">chart_desc='${chart_desc}', </if>
+            <if test="chartContent!= null and chartContent != ''">content='${chartContent}', </if>
+            <if test="updated_at!= null and updated_at != ''">updated_at='${updated_at}', </if>
+            <if test="is_private!= null and is_private != ''">is_private=${is_private}, </if>
+            <if test="status!= null and status != ''">status=${status}, </if>
+        </set>
+        where chart_id='${chart_id}'
+    </update>
+
+    <delete id="deleteBiChartById"  parameterType="java.util.Map">
+        delete from bi_chart where chart_id='${chart_id}'
+    </delete>
+
+    <select id="selectBiChartById" parameterType="java.util.Map" resultType="com.oceanus.bi.domain.Chart">
+        select
+            chart_id,
+            chart_name,
+            chart_desc,
+            content as chartContent,
+            is_private,
+            status,
+            created_at,
+            updated_at,
+            creator_id,
+            source_id
+        from  bi_chart
+        where chart_id='${chart_id}'
+    </select>
+
+    <select id="selectChartListByDashboardId" parameterType="java.util.Map" resultType="com.oceanus.bi.domain.Chart">
+         select
+            c.chart_id,
+            c.chart_name,
+            c.chart_desc,
+            c.content as chartContent,
+            c.is_private,
+            c.status,
+            c.created_at,
+            c.updated_at,
+            c.creator_id,
+            c.source_id
+        from bi_chart c
+        left join bi_chartboardmap b on c.chart_id=b.chart_id
+        where b.dashboard_id='${dashboard_id}'
+    </select>
+
+    <select id="selectAllChartByCreateor" parameterType="java.util.Map" resultType="com.oceanus.bi.domain.Chart">
+        select
+            chart_id,
+            chart_name,
+            chart_desc,
+            content as chartContent,
+            is_private,
+            status,
+            created_at,
+            updated_at,
+            creator_id,
+            source_id
+        from  bi_chart
+        where creator_id=${creator_id}
+        <!-- 数据范围过滤 -->
+        ${params.dataScope}
+    </select>
+</mapper>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oceanus.bi.mapper.BIDashboradMapper">
+
+    <insert id="insertBiDashboard" parameterType="com.oceanus.bi.domain.Dashboard">
+        insert into bi_dashboard
+            (dashboard_id,
+            dashborad_name,
+            dashborad_desc,
+            content,
+            private_status,
+            dashborad_status,
+            created_at,
+            creator_id,
+            project_id
+            )
+        values
+            ('${dashboard_id}',
+            '${dashborad_name}',
+            '${dashborad_desc}',
+            '${dashbordContent}',
+            ${private_status},
+            ${dashborad_status},
+            '${created_at}',
+            ${creator_id},
+            '${project_id}')
+    </insert>
+
+    <!--添加图表到看板-->
+    <insert id="insertChartToDashboard" parameterType="java.util.Map">
+        insert into bi_chartboardmap
+            (chart_id,
+            dashboard_id,
+            created_at,
+            updated_at)
+        values
+            ('${chart_id}',
+            '${dashboard_id}',
+            '${created_at}',
+            '${updated_at}')
+    </insert>
+
+    <delete id="deleteChartToDashboard" parameterType="java.util.Map">
+        delete from bi_chartboardmap
+        where chart_id='${chart_id}' and dashboard_id='${dashboard_id}'
+    </delete>
+
+    <update id="updateBiDashboard" parameterType="com.oceanus.bi.domain.Dashboard">
+        update bi_dashboard
+        <set>
+            <if test="dashborad_name != null and dashborad_name != ''">dashborad_name='${dashborad_name}', </if>
+            <if test="dashborad_desc != null and dashborad_desc != ''">dashborad_desc='${dashborad_desc}', </if>
+            <if test="dashbordContent!= null and dashbordContent != ''">content='${dashbordContent}', </if>
+            <if test="updated_at!= null and updated_at != ''">updated_at='${updated_at}', </if>
+            <if test="private_status != null">private_status=${private_status}, </if>
+            <if test="dashborad_status!= null">dashborad_status=${dashborad_status}, </if>
+        </set>
+        where dashboard_id='${dashboard_id}'
+    </update>
+
+
+    <update id="updateBiDashboardOrder" parameterType="com.oceanus.bi.domain.Dashboard">
+        update bi_dashboard
+        <set>
+            <if test="updated_at!= null and updated_at != ''">updated_at='${updated_at}', </if>
+        </set>
+        where dashboard_id='${dashboard_id}'
+    </update>
+    <!--删除概览-->
+    <delete id="deleteBiDashboardById"  parameterType="java.util.Map">
+        delete from bi_dashboard where dashboard_id='${dashboard_id}'
+    </delete>
+    <!--删除概览对应的分享-->
+    <delete id="deleteBiShareDashboardById"  parameterType="java.util.Map">
+        delete from bi_share_dashboard where dashboard_id='${dashboard_id}'
+    </delete>
+    <!--删除概览对应的图表关系-->
+    <delete id="deleteBiDashboardChartMapById"  parameterType="java.util.Map">
+        delete from bi_chartboardmap where dashboard_id='${dashboard_id}'
+    </delete>
+
+
+    <!--根据项目删除概览-->
+    <delete id="deleteBiDashboardByProjectId"  parameterType="java.util.Map">
+        delete from bi_dashboard where project_id ='${project_id}'
+    </delete>
+    <!--根据项目删除概览对应的分享-->
+    <delete id="deleteBiShareDashboardByProjectId"  parameterType="java.util.Map">
+        delete from bi_share_dashboard
+        where
+        dashboard_id in (select dashboard_id from bi_dashboard where project_id ='${project_id}')
+    </delete>
+    <!--根据项目删除概览对应的图表关系-->
+    <delete id="deleteBiDashboardChartMapByProjectId"  parameterType="java.util.Map">
+        delete from bi_chartboardmap
+        where
+        dashboard_id in (select dashboard_id from bi_dashboard where project_id ='${project_id}')
+    </delete>
+
+
+
+    <select id="selectBiDashboardById" parameterType="java.util.Map" resultType="com.oceanus.bi.domain.Dashboard">
+        select
+            dashboard_id,
+            dashborad_name,
+            dashborad_desc,
+            content as dashbordContent,
+            private_status,
+            dashborad_status,
+            created_at,
+            updated_at,
+            creator_id,
+            project_id
+        from  bi_dashboard
+        where dashboard_id='${dashboard_id}'
+    </select>
+
+    <select id="selectDashboardListByCreatorId" parameterType="java.util.Map" resultType="com.oceanus.bi.domain.Dashboard">
+         select
+            dashboard_id,
+            dashborad_name,
+            dashborad_desc,
+            content as dashbordContent,
+            private_status,
+            dashborad_status,
+            created_at,
+            project_id,
+            updated_at,
+            creator_id
+        from bi_dashboard
+        where creator_id=${creator_id} and project_id='${project_id}'
+        order by created_at
+    </select>
+
+    <select id="selectMyDashboardList" parameterType="java.util.Map" resultType="java.util.Map">
+         select
+            dashboard_id as id ,
+            dashborad_name as label,
+            dashborad_desc,
+            content as dashbordContent,
+            private_status,
+            dashborad_status,
+            created_at,
+            project_id,
+            updated_at,
+            creator_id
+        from bi_dashboard
+        where creator_id=${creator_id} and project_id='${project_id}'
+        order by created_at
+    </select>
+
+    <!--获取公共数据概览，目前这个地方没有实现saas化，后期要加上企业编号，只能查看该企业内部公共的数据概览-->
+    <select id="selectPublicDashboardList" parameterType="java.util.Map" resultType="java.util.Map">
+         select
+            dashboard_id as id ,
+            dashborad_name as label,
+            dashborad_desc,
+            content as dashbordContent,
+            private_status,
+            dashborad_status,
+            created_at,
+            project_id,
+            updated_at,
+            creator_id
+        from bi_dashboard
+        where creator_id=${creator_id} and project_id='${project_id}' and private_status=0
+        order by created_at
+    </select>
+
+    <!--分享给我的数据概览-->
+    <select id="selectShareToMeDashboardList" parameterType="java.util.Map" resultType="java.util.Map">
+         select
+            dash.dashboard_id as id,
+            dash.dashborad_name as label,
+            dash.dashborad_desc,
+            dash.content as dashbordContent,
+            dash.private_status,
+            dash.dashborad_status,
+            dash.created_at,
+            dash.project_id,
+            dash.updated_at,
+            dash.creator_id
+        from bi_dashboard dash
+        left join bi_share_dashboard share on share.dashboard_id=dash.dashboard_id
+        where dash.project_id='${project_id}' and share.to_user_id=${creator_id}
+        order by dash.created_at
+    </select>
+
+
+    <select id="selectIdOrderByCreatorId" parameterType="java.util.Map" resultType="java.lang.String">
+         select
+            dashboard_id
+        from bi_dashboard
+        where creator_id=${creator_id} and project_id='${project_id}'
+        order by created_at
+    </select>
+</mapper>

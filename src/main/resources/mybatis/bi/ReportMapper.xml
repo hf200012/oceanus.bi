@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oceanus.bi.mapper.ReportMapper">
+
+    <insert id="insertReport" parameterType="com.oceanus.bi.domain.Report">
+        insert into bi_report
+            (report_id,
+            report_name,
+            report_desc,
+            report_sql,
+            private_status,
+            status,
+            create_date,
+            field_cnames,
+            source_id,
+            creator_id)
+        values
+            ('${report_id}',
+            '${report_name}',
+            '${report_desc}',
+            '${report_sql}',
+            ${private_status},
+            ${status},
+            '${create_date}',
+            '${field_cnames}',
+            ${source_id},
+            ${creator_id})
+    </insert>
+
+
+    <insert id="insertShare" parameterType="com.oceanus.bi.domain.ReportShare">
+        insert into bi_report_share
+        (to_user_id,
+        share_user_id,
+        report_id,
+        share_date)
+        values
+        <foreach collection="list" item="item" index= "index" separator =",">
+            (
+            ${item.to_user_id},
+            ${item.share_user_id},
+            '${item.report_id}',
+            '${item.share_date}')
+        </foreach>
+    </insert>
+
+    <update id="updateBiReport" parameterType="com.oceanus.bi.domain.Report">
+        update bi_report
+        <set>
+            <if test="report_name != null and report_name != ''">report_name='${report_name}', </if>
+            <if test="report_desc != null and report_desc != ''">report_desc='${report_desc}', </if>
+            <if test="report_sql != null and report_sql != ''">report_sql='${report_sql}', </if>
+            <if test="private_status!= null">private_status=${private_status}, </if>
+            <if test="status!= null ">status=${status}, </if>
+            <if test="update_date != null and update_date != ''">update_date='${update_date}', </if>
+            <if test="field_cnames != null and field_cnames != ''">field_cnames='${field_cnames}', </if>
+        </set>
+        where report_id='${report_id}'
+    </update>
+
+    <delete id="deleteBiReportById"  parameterType="java.util.Map">
+        delete from bi_report where report_id='${report_id}'
+    </delete>
+
+    <delete id="deleteBiShareReportById"  parameterType="java.util.Map">
+        delete from bi_report_share where report_id='${report_id}'
+    </delete>
+
+
+    <select id="selectBiReportById" parameterType="java.util.Map" resultType="com.oceanus.bi.domain.Report">
+        select
+            report_id,
+            report_name,
+            report_desc,
+            report_sql,
+            private_status,
+            status,
+            create_date,
+            update_date,
+            source_id,
+            creator_id,
+            field_cnames
+        from  bi_report
+        where report_id='${report_id}'
+    </select>
+
+    <!--获取项目列表，包括我创建的及项目是公开的，目前没有实现SAAS功能，后期也加上企业编号-->
+    <select id="selectAllReportByCreateor" parameterType="java.util.Map" resultType="com.oceanus.bi.domain.Report">
+        select
+            report_id,
+            report_name,
+            report_desc,
+            private_status,
+            status,
+            date_format(create_date, '%Y-%m-%d %H:%i:%s') as create_date,
+            creator_id,
+            field_cnames,
+            source_id
+        from  bi_report
+        where creator_id=${creator_id}
+    </select>
+
+    <select id="selecgAllReportListOfOwner" parameterType="java.util.Map" resultType="com.oceanus.bi.domain.Report">
+        select
+            report_id,
+            report_name,
+            report_desc,
+            private_status,
+            status,
+            date_format(create_date, '%Y-%m-%d %H:%i:%s') as create_date,
+            creator_id,
+            source_id,
+            field_cnames
+        from  bi_report
+        where creator_id=${creator_id}
+         ${params.dataScope}
+    </select>
+
+    <!--获取项目列表，包括我创建的及项目是公开的，目前没有实现SAAS功能，后期也加上企业编号-->
+    <select id="selectPublicReportList" parameterType="java.util.Map" resultType="java.util.Map">
+        select
+            report_id as id,
+            report_name as label,
+            report_desc,
+            private_status,
+            status,
+            field_cnames,
+            date_format(create_date, '%Y-%m-%d %H:%i:%s') as create_date,
+            creator_id,
+            source_id
+        from  bi_report
+        where creator_id != ${creator_id} and private_status=0
+    </select>
+
+    <select id="selectShareReportList" parameterType="java.util.Map" resultType="java.util.Map">
+        select
+           a.report_id as id,
+           a.report_name as label,
+           a.report_desc,
+           a.private_status,
+           a.status,
+           a.field_cnames,
+           date_format(a.create_date, '%Y-%m-%d %H:%i:%s') as create_date,
+           a.creator_id,
+           a.source_id
+        from  bi_report a
+        join bi_report_share b on a.report_id=b.report_id
+        where b.to_user_id=${creator_id}
+        order by b.share_date
+    </select>
+
+
+</mapper>

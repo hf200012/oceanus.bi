@@ -1,0 +1,2 @@
+Application Version: ${venus.version}
+Spring Boot Version: ${spring-boot.version}

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oceanus.bi.mapper.BIProjectMapper">
+
+    <insert id="insertProject" parameterType="com.oceanus.bi.domain.Project">
+        insert into bi_project
+            (project_id,
+            project_name,
+            project_desc,
+            private_status,
+            status,
+            created_at,
+            creator_username,
+            creator_id)
+        values
+            ('${project_id}',
+            '${project_name}',
+            '${project_desc}',
+            ${private_status},
+            ${status},
+            '${created_at}',
+            '${creator_username}',
+            ${creator_id})
+    </insert>
+
+    <update id="updateBiproject" parameterType="com.oceanus.bi.domain.Project">
+        update bi_project
+        <set>
+            <if test="project_name != null and project_name != ''">project_name='${project_name}', </if>
+            <if test="project_desc != null and project_desc != ''">project_desc='${project_desc}', </if>
+            <if test="private_status!= null">private_status=${private_status}, </if>
+            <if test="status!= null ">status=${status}, </if>
+            <if test="creator_username!= null and creator_username != ''">creator_username='${creator_username}', </if>
+        </set>
+        where project_id='${project_id}'
+    </update>
+
+    <delete id="deleteBiProjectById"  parameterType="java.util.Map">
+        delete from bi_project where project_id='${project_id}'
+    </delete>
+
+    <select id="selectBiProjectById" parameterType="java.util.Map" resultType="com.oceanus.bi.domain.Project">
+        select
+            project_id,
+            project_name,
+            project_desc,
+            creator_username,
+            private_status,
+            status,
+            date_format(created_at, '%Y-%m-%d %H:%i:%s') as created_at,
+            creator_id
+        from  bi_project
+        where project_id='${project_id}'
+    </select>
+
+    <!--获取项目列表，包括我创建的及项目是公开的，目前没有实现SAAS功能，后期也加上企业编号-->
+    <select id="selectAllProjectByCreateor" parameterType="java.util.Map" resultType="com.oceanus.bi.domain.Project">
+        select
+            project_id,
+            project_name,
+            project_desc,
+            private_status,
+            status,
+            date_format(created_at, '%Y-%m-%d %H:%i:%s') as created_at,
+            creator_username,
+            creator_id
+        from  bi_project
+        where creator_id=${creator_id} or (creator_id != ${creator_id} and private_status=0)
+    </select>
+    <select id="selectAllPublicProject" parameterType="java.util.Map" resultType="com.oceanus.bi.domain.Project">
+        select
+            project_id,
+            project_name,
+            project_desc,
+            private_status,
+            status,
+            date_format(created_at, '%Y-%m-%d %H:%i:%s') as created_at,
+            creator_username,
+            creator_id
+        from  bi_project
+        where private_status=0
+    </select>
+
+
+</mapper>
