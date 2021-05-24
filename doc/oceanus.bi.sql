@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 192.168.9.32
+ Source Server         : mysql8
  Source Server Type    : MySQL
- Source Server Version : 80021
- Source Host           : 192.168.9.32:3306
+ Source Server Version : 80020
+ Source Host           : localhost:3306
  Source Schema         : venus_bi
 
  Target Server Type    : MySQL
- Target Server Version : 80021
+ Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 08/09/2020 13:30:56
+ Date: 24/05/2021 13:09:14
 */
 
 SET NAMES utf8mb4;
@@ -26,12 +26,12 @@ CREATE TABLE `bi_chart`  (
   `chart_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `chart_desc` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `is_private` tinyint(0) NOT NULL DEFAULT 1,
-  `status` int(0) NOT NULL DEFAULT 1,
-  `created_at` datetime(0) NOT NULL,
-  `updated_at` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
-  `creator_id` int(0) NOT NULL,
-  `source_id` int(0) NOT NULL,
+  `is_private` tinyint NOT NULL DEFAULT 1,
+  `status` int NOT NULL DEFAULT 1,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `creator_id` int NOT NULL,
+  `source_id` int NOT NULL,
   PRIMARY KEY (`chart_id`) USING BTREE,
   INDEX `bi_chart_source_id_id_ace030aa_fk_so`(`source_id`) USING BTREE,
   CONSTRAINT `bi_chart_source_id_id_ace030aa_fk_so` FOREIGN KEY (`source_id`) REFERENCES `bi_datasource` (`source_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -61,15 +61,15 @@ INSERT INTO `bi_chart` VALUES ('f6161606-4e63-4de7-85b8-b89789fcfce1', '字段�
 -- ----------------------------
 DROP TABLE IF EXISTS `bi_chartboardmap`;
 CREATE TABLE `bi_chartboardmap`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `created_at` datetime(0) NOT NULL,
-  `updated_at` datetime(0) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   `chart_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `dashboard_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `bi_chartboardmap_chart_id`(`chart_id`) USING BTREE,
   INDEX `bi_chartboardmap_dashboard_id`(`dashboard_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 68 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 71 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bi_chartboardmap
@@ -131,6 +131,10 @@ INSERT INTO `bi_chartboardmap` VALUES (64, '2020-09-05 11:26:35', '2020-09-05 11
 INSERT INTO `bi_chartboardmap` VALUES (65, '2020-09-05 11:27:09', '2020-09-05 11:27:09', 'f6086692-ff12-46e5-abcb-58519a4dbf88', '10ea9f87-0634-45dd-8081-973b3ec7191b');
 INSERT INTO `bi_chartboardmap` VALUES (66, '2020-09-05 11:27:40', '2020-09-05 11:27:40', '68eb3d09-29af-47fe-a0b0-eb59a66435f9', '10ea9f87-0634-45dd-8081-973b3ec7191b');
 INSERT INTO `bi_chartboardmap` VALUES (67, '2020-09-08 09:09:43', '2020-09-08 09:09:43', '75e370ba-ce09-401c-9a06-b00d421abfca', '29561412-13c3-4984-ab09-299341d11ceb');
+INSERT INTO `bi_chartboardmap` VALUES (68, '2021-05-13 17:13:06', '2021-05-13 17:13:06', '03cce4e1-75b1-4fa6-8d47-943b3ae09c7b', 'ed7a6e5f-a159-4b9f-bcf1-1eb1094fce51');
+INSERT INTO `bi_chartboardmap` VALUES (69, '2021-05-13 17:13:11', '2021-05-13 17:13:11', '0c02aaa8-7b63-437d-a293-7c665e7ebee8', 'ed7a6e5f-a159-4b9f-bcf1-1eb1094fce51');
+INSERT INTO `bi_chartboardmap` VALUES (70, '2021-05-13 17:13:14', '2021-05-13 17:13:14', '57f0ef26-1279-4be8-bf34-793c5d426eaf', 'ed7a6e5f-a159-4b9f-bcf1-1eb1094fce51');
+INSERT INTO `bi_chartboardmap` VALUES (71, '2021-05-13 17:13:17', '2021-05-13 17:13:17', '45fc5e96-912b-496b-8c32-d69873c9d5e3', 'ed7a6e5f-a159-4b9f-bcf1-1eb1094fce51');
 
 -- ----------------------------
 -- Table structure for bi_dashboard
@@ -141,11 +145,11 @@ CREATE TABLE `bi_dashboard`  (
   `dashborad_name` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `dashborad_desc` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `private_status` tinyint(0) NOT NULL DEFAULT 1,
-  `dashborad_status` int(0) NOT NULL DEFAULT 1,
+  `private_status` tinyint NOT NULL DEFAULT 1,
+  `dashborad_status` int NOT NULL DEFAULT 1,
   `created_at` datetime(6) NULL DEFAULT NULL,
   `updated_at` datetime(6) NULL DEFAULT NULL,
-  `creator_id` int(0) NOT NULL,
+  `creator_id` int NOT NULL,
   `project_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`dashboard_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
@@ -160,19 +164,20 @@ INSERT INTO `bi_dashboard` VALUES ('4a5935a2-2ee7-418d-8f4d-3264ed0a679b', '测�
 INSERT INTO `bi_dashboard` VALUES ('4de8022a-0d4a-4f0e-ba16-d546c305fd7e', '测试公开概览', '测试公开概览', '[{\"yOffSet\":9,\"topLine\":[[0,0],[12,0]],\"w\":12,\"moved\":false,\"x\":0,\"h\":9,\"y\":4,\"i\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"id\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"xOffSet\":12,\"bottomLine\":[[0,9],[12,9]]},{\"yOffSet\":9,\"topLine\":[[12,0],[24,0]],\"w\":12,\"moved\":false,\"x\":12,\"h\":9,\"y\":4,\"i\":\"a4faad40-585c-4a40-aad8-dfbb9b171246\",\"id\":\"a4faad40-585c-4a40-aad8-dfbb9b171246\",\"xOffSet\":24,\"bottomLine\":[[12,9],[24,9]]},{\"yOffSet\":27,\"topLine\":[[0,18],[12,18]],\"w\":5,\"moved\":false,\"x\":0,\"h\":4,\"y\":0,\"i\":\"f6086692-ff12-46e5-abcb-58519a4dbf88\",\"id\":\"f6086692-ff12-46e5-abcb-58519a4dbf88\",\"xOffSet\":12,\"bottomLine\":[[0,27],[12,27]]},{\"yOffSet\":36,\"topLine\":[[0,27],[12,27]],\"w\":5,\"moved\":false,\"x\":5,\"h\":4,\"y\":0,\"i\":\"0c02aaa8-7b63-437d-a293-7c665e7ebee8\",\"id\":\"0c02aaa8-7b63-437d-a293-7c665e7ebee8\",\"xOffSet\":12,\"bottomLine\":[[0,36],[12,36]]},{\"yOffSet\":45,\"topLine\":[[0,36],[12,36]],\"w\":5,\"moved\":false,\"x\":10,\"h\":4,\"y\":0,\"i\":\"13942e1e-c450-4a29-9f23-f642c78c0355\",\"id\":\"13942e1e-c450-4a29-9f23-f642c78c0355\",\"xOffSet\":12,\"bottomLine\":[[0,45],[12,45]]},{\"yOffSet\":54,\"topLine\":[[0,45],[12,45]],\"w\":4,\"moved\":false,\"x\":20,\"h\":4,\"y\":0,\"i\":\"45fc5e96-912b-496b-8c32-d69873c9d5e3\",\"id\":\"45fc5e96-912b-496b-8c32-d69873c9d5e3\",\"xOffSet\":12,\"bottomLine\":[[0,54],[12,54]]},{\"w\":5,\"moved\":false,\"x\":15,\"h\":4,\"y\":0,\"i\":\"e83a1ab1-fc6b-464f-8b60-9f101d0fdfa1\",\"id\":\"e83a1ab1-fc6b-464f-8b60-9f101d0fdfa1\"}]', 0, 1, '2020-09-03 12:36:42.000000', '2020-09-08 11:45:31.000000', 1, '0b5861f1-6362-45e1-8f02-ac21e7983ad7');
 INSERT INTO `bi_dashboard` VALUES ('70caa17e-2e5a-4096-8c61-e4336b6b98a6', '订单数据分析演示概览', '分析订单情况', '[{\"yOffSet\":8,\"topLine\":[[5,0],[16,0]],\"w\":11,\"moved\":false,\"x\":5,\"h\":8,\"y\":0,\"i\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"id\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"xOffSet\":16,\"bottomLine\":[[5,8],[16,8]]},{\"yOffSet\":4,\"topLine\":[[0,0],[5,0]],\"w\":5,\"moved\":false,\"x\":0,\"h\":4,\"y\":0,\"i\":\"13942e1e-c450-4a29-9f23-f642c78c0355\",\"id\":\"13942e1e-c450-4a29-9f23-f642c78c0355\",\"xOffSet\":5,\"bottomLine\":[[0,4],[5,4]]},{\"yOffSet\":8,\"topLine\":[[0,4],[5,4]],\"w\":5,\"moved\":false,\"x\":0,\"h\":4,\"y\":4,\"i\":\"45fc5e96-912b-496b-8c32-d69873c9d5e3\",\"id\":\"45fc5e96-912b-496b-8c32-d69873c9d5e3\",\"xOffSet\":5,\"bottomLine\":[[0,8],[5,8]]},{\"yOffSet\":12,\"topLine\":[[8,8],[15,8]],\"w\":7,\"moved\":false,\"x\":8,\"h\":4,\"y\":8,\"i\":\"0c02aaa8-7b63-437d-a293-7c665e7ebee8\",\"id\":\"0c02aaa8-7b63-437d-a293-7c665e7ebee8\",\"xOffSet\":15,\"bottomLine\":[[8,12],[15,12]]},{\"yOffSet\":16,\"topLine\":[[0,8],[8,8]],\"w\":8,\"moved\":false,\"x\":0,\"h\":8,\"y\":8,\"i\":\"5496fa64-5d86-4530-9e58-c7f6e3a96178\",\"id\":\"5496fa64-5d86-4530-9e58-c7f6e3a96178\",\"xOffSet\":8,\"bottomLine\":[[0,16],[8,16]]},{\"yOffSet\":16,\"topLine\":[[8,12],[15,12]],\"w\":7,\"moved\":false,\"x\":8,\"h\":4,\"y\":12,\"i\":\"e83a1ab1-fc6b-464f-8b60-9f101d0fdfa1\",\"id\":\"e83a1ab1-fc6b-464f-8b60-9f101d0fdfa1\",\"xOffSet\":15,\"bottomLine\":[[8,16],[15,16]]},{\"yOffSet\":24,\"topLine\":[[0,16],[13,16]],\"w\":11,\"moved\":false,\"x\":0,\"h\":8,\"y\":16,\"i\":\"d57b2854-a86a-4537-81b6-175114c7258c\",\"id\":\"d57b2854-a86a-4537-81b6-175114c7258c\",\"xOffSet\":13,\"bottomLine\":[[0,24],[13,24]]},{\"yOffSet\":16,\"topLine\":[[15,8],[24,8]],\"w\":9,\"moved\":false,\"x\":15,\"h\":8,\"y\":8,\"i\":\"68eb3d09-29af-47fe-a0b0-eb59a66435f9\",\"id\":\"68eb3d09-29af-47fe-a0b0-eb59a66435f9\",\"xOffSet\":24,\"bottomLine\":[[15,16],[24,16]]},{\"yOffSet\":24,\"topLine\":[[13,16],[18,16]],\"w\":5,\"moved\":false,\"x\":11,\"h\":8,\"y\":16,\"i\":\"f6086692-ff12-46e5-abcb-58519a4dbf88\",\"id\":\"f6086692-ff12-46e5-abcb-58519a4dbf88\",\"xOffSet\":18,\"bottomLine\":[[13,24],[18,24]]},{\"yOffSet\":8,\"topLine\":[[16,0],[24,0]],\"w\":8,\"moved\":false,\"x\":16,\"h\":8,\"y\":0,\"i\":\"f2b74c75-dd85-4007-ab5f-6ae1e90845b5\",\"id\":\"f2b74c75-dd85-4007-ab5f-6ae1e90845b5\",\"xOffSet\":24,\"bottomLine\":[[16,8],[24,8]]},{\"w\":8,\"moved\":false,\"x\":16,\"h\":8,\"y\":16,\"i\":\"f6161606-4e63-4de7-85b8-b89789fcfce1\",\"id\":\"f6161606-4e63-4de7-85b8-b89789fcfce1\"}]', 0, 1, '2020-09-05 11:19:44.000000', '2020-09-08 11:56:47.000000', 1, '84cd5909-16ee-446c-8526-6379759223b2');
 INSERT INTO `bi_dashboard` VALUES ('98cbe07c-9ba4-41f4-be6a-4785ea28f42a', '我的数据概览', '', '[]', 1, 1, '2020-09-07 17:45:44.000000', '2020-09-07 17:45:44.000000', 2, '0e3211ad-5175-4d26-9439-5e2e7d81fa54');
-INSERT INTO `bi_dashboard` VALUES ('ac1c083e-d554-4c28-83e3-6f890f37e018', '订单分析概览', '订单分析概览', '[{\"yOffSet\":16,\"topLine\":[[5,7],[15,7]],\"w\":10,\"moved\":false,\"x\":5,\"h\":7,\"y\":6,\"i\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"id\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"xOffSet\":15,\"bottomLine\":[[5,16],[15,16]]},{\"yOffSet\":7,\"topLine\":[[8,0],[16,0]],\"w\":8,\"moved\":false,\"x\":8,\"h\":6,\"y\":0,\"i\":\"5496fa64-5d86-4530-9e58-c7f6e3a96178\",\"id\":\"5496fa64-5d86-4530-9e58-c7f6e3a96178\",\"xOffSet\":16,\"bottomLine\":[[8,7],[16,7]]},{\"yOffSet\":27,\"topLine\":[[0,16],[24,16]],\"w\":24,\"moved\":false,\"x\":0,\"h\":11,\"y\":13,\"i\":\"d57b2854-a86a-4537-81b6-175114c7258c\",\"id\":\"d57b2854-a86a-4537-81b6-175114c7258c\",\"xOffSet\":24,\"bottomLine\":[[0,27],[24,27]]},{\"yOffSet\":7,\"topLine\":[[0,0],[8,0]],\"w\":8,\"moved\":false,\"x\":0,\"h\":6,\"y\":0,\"i\":\"f2b74c75-dd85-4007-ab5f-6ae1e90845b5\",\"id\":\"f2b74c75-dd85-4007-ab5f-6ae1e90845b5\",\"xOffSet\":8,\"bottomLine\":[[0,7],[8,7]]},{\"yOffSet\":11,\"topLine\":[[15,7],[20,7]],\"w\":5,\"moved\":false,\"x\":15,\"h\":3,\"y\":6,\"i\":\"45fc5e96-912b-496b-8c32-d69873c9d5e3\",\"id\":\"45fc5e96-912b-496b-8c32-d69873c9d5e3\",\"xOffSet\":20,\"bottomLine\":[[15,11],[20,11]]},{\"yOffSet\":16,\"topLine\":[[15,11],[20,11]],\"w\":5,\"moved\":false,\"x\":15,\"h\":4,\"y\":9,\"i\":\"13942e1e-c450-4a29-9f23-f642c78c0355\",\"id\":\"13942e1e-c450-4a29-9f23-f642c78c0355\",\"xOffSet\":20,\"bottomLine\":[[15,16],[20,16]]},{\"yOffSet\":9,\"topLine\":[[20,0],[24,0]],\"w\":4,\"moved\":false,\"x\":20,\"h\":7,\"y\":6,\"i\":\"0c02aaa8-7b63-437d-a293-7c665e7ebee8\",\"id\":\"0c02aaa8-7b63-437d-a293-7c665e7ebee8\",\"xOffSet\":24,\"bottomLine\":[[20,9],[24,9]]},{\"yOffSet\":11,\"topLine\":[[0,7],[5,7]],\"w\":5,\"moved\":false,\"x\":0,\"h\":3,\"y\":6,\"i\":\"e83a1ab1-fc6b-464f-8b60-9f101d0fdfa1\",\"id\":\"e83a1ab1-fc6b-464f-8b60-9f101d0fdfa1\",\"xOffSet\":5,\"bottomLine\":[[0,11],[5,11]]},{\"yOffSet\":16,\"topLine\":[[0,11],[5,11]],\"w\":5,\"moved\":false,\"x\":0,\"h\":4,\"y\":9,\"i\":\"f6086692-ff12-46e5-abcb-58519a4dbf88\",\"id\":\"f6086692-ff12-46e5-abcb-58519a4dbf88\",\"xOffSet\":5,\"bottomLine\":[[0,16],[5,16]]},{\"w\":8,\"moved\":false,\"x\":16,\"h\":6,\"y\":0,\"i\":\"68eb3d09-29af-47fe-a0b0-eb59a66435f9\",\"id\":\"68eb3d09-29af-47fe-a0b0-eb59a66435f9\"}]', 1, 1, '2020-08-28 14:21:27.000000', '2020-09-08 13:19:40.000000', 1, '0b5861f1-6362-45e1-8f02-ac21e7983ad7');
+INSERT INTO `bi_dashboard` VALUES ('ac1c083e-d554-4c28-83e3-6f890f37e018', '订单分析概览', '订单分析概览', '[{\"yOffSet\":16,\"topLine\":[[5,7],[15,7]],\"w\":10,\"moved\":false,\"x\":5,\"h\":7,\"y\":6,\"i\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"id\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"xOffSet\":15,\"bottomLine\":[[5,16],[15,16]]},{\"yOffSet\":7,\"topLine\":[[8,0],[16,0]],\"w\":8,\"moved\":false,\"x\":8,\"h\":6,\"y\":0,\"i\":\"5496fa64-5d86-4530-9e58-c7f6e3a96178\",\"id\":\"5496fa64-5d86-4530-9e58-c7f6e3a96178\",\"xOffSet\":16,\"bottomLine\":[[8,7],[16,7]]},{\"yOffSet\":27,\"topLine\":[[0,16],[24,16]],\"w\":24,\"moved\":false,\"x\":0,\"h\":11,\"y\":13,\"i\":\"d57b2854-a86a-4537-81b6-175114c7258c\",\"id\":\"d57b2854-a86a-4537-81b6-175114c7258c\",\"xOffSet\":24,\"bottomLine\":[[0,27],[24,27]]},{\"yOffSet\":7,\"topLine\":[[0,0],[8,0]],\"w\":8,\"moved\":false,\"x\":0,\"h\":6,\"y\":0,\"i\":\"f2b74c75-dd85-4007-ab5f-6ae1e90845b5\",\"id\":\"f2b74c75-dd85-4007-ab5f-6ae1e90845b5\",\"xOffSet\":8,\"bottomLine\":[[0,7],[8,7]]},{\"yOffSet\":11,\"topLine\":[[15,7],[20,7]],\"w\":5,\"moved\":false,\"x\":15,\"h\":3,\"y\":6,\"i\":\"45fc5e96-912b-496b-8c32-d69873c9d5e3\",\"id\":\"45fc5e96-912b-496b-8c32-d69873c9d5e3\",\"xOffSet\":20,\"bottomLine\":[[15,11],[20,11]]},{\"yOffSet\":16,\"topLine\":[[15,11],[20,11]],\"w\":5,\"moved\":false,\"x\":15,\"h\":4,\"y\":9,\"i\":\"13942e1e-c450-4a29-9f23-f642c78c0355\",\"id\":\"13942e1e-c450-4a29-9f23-f642c78c0355\",\"xOffSet\":20,\"bottomLine\":[[15,16],[20,16]]},{\"yOffSet\":9,\"topLine\":[[20,0],[24,0]],\"w\":4,\"moved\":false,\"x\":20,\"h\":7,\"y\":6,\"i\":\"0c02aaa8-7b63-437d-a293-7c665e7ebee8\",\"id\":\"0c02aaa8-7b63-437d-a293-7c665e7ebee8\",\"xOffSet\":24,\"bottomLine\":[[20,9],[24,9]]},{\"yOffSet\":11,\"topLine\":[[0,7],[5,7]],\"w\":5,\"moved\":false,\"x\":0,\"h\":3,\"y\":6,\"i\":\"e83a1ab1-fc6b-464f-8b60-9f101d0fdfa1\",\"id\":\"e83a1ab1-fc6b-464f-8b60-9f101d0fdfa1\",\"xOffSet\":5,\"bottomLine\":[[0,11],[5,11]]},{\"yOffSet\":16,\"topLine\":[[0,11],[5,11]],\"w\":5,\"moved\":false,\"x\":0,\"h\":4,\"y\":9,\"i\":\"f6086692-ff12-46e5-abcb-58519a4dbf88\",\"id\":\"f6086692-ff12-46e5-abcb-58519a4dbf88\",\"xOffSet\":5,\"bottomLine\":[[0,16],[5,16]]},{\"w\":8,\"moved\":false,\"x\":16,\"h\":6,\"y\":0,\"i\":\"68eb3d09-29af-47fe-a0b0-eb59a66435f9\",\"id\":\"68eb3d09-29af-47fe-a0b0-eb59a66435f9\"}]', 1, 1, '2020-08-28 14:21:27.000000', '2021-05-13 17:16:58.000000', 1, '0b5861f1-6362-45e1-8f02-ac21e7983ad7');
 INSERT INTO `bi_dashboard` VALUES ('b44002b0-ed7d-49e0-9ec7-ade3a24a3e93', '测试看板', '', '[{\"yOffSet\":9,\"topLine\":[[0,0],[12,0]],\"w\":12,\"moved\":false,\"x\":0,\"h\":9,\"y\":0,\"i\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"id\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"xOffSet\":12,\"bottomLine\":[[0,9],[12,9]]},{\"yOffSet\":9,\"topLine\":[[12,0],[24,0]],\"w\":12,\"moved\":false,\"x\":12,\"h\":9,\"y\":0,\"i\":\"68eb3d09-29af-47fe-a0b0-eb59a66435f9\",\"id\":\"68eb3d09-29af-47fe-a0b0-eb59a66435f9\",\"xOffSet\":24,\"bottomLine\":[[12,9],[24,9]]},{\"yOffSet\":18,\"topLine\":[[0,9],[12,9]],\"w\":12,\"moved\":false,\"x\":0,\"h\":9,\"y\":9,\"i\":\"5496fa64-5d86-4530-9e58-c7f6e3a96178\",\"id\":\"5496fa64-5d86-4530-9e58-c7f6e3a96178\",\"xOffSet\":12,\"bottomLine\":[[0,18],[12,18]]},{\"w\":12,\"moved\":false,\"x\":12,\"h\":9,\"y\":9,\"i\":\"57f0ef26-1279-4be8-bf34-793c5d426eaf\",\"id\":\"57f0ef26-1279-4be8-bf34-793c5d426eaf\"}]', 0, 1, '2020-09-02 16:42:10.000000', '2020-09-08 11:56:39.000000', 1, '0e3211ad-5175-4d26-9439-5e2e7d81fa54');
 INSERT INTO `bi_dashboard` VALUES ('cec92ab4-d5de-42b7-80d0-f9ab2ce5aa9b', '演示看板', '', '[{\"yOffSet\":9,\"topLine\":[[0,0],[12,0]],\"w\":12,\"moved\":false,\"x\":0,\"h\":9,\"y\":0,\"i\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"id\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"xOffSet\":12,\"bottomLine\":[[0,9],[12,9]]},{\"yOffSet\":9,\"topLine\":[[12,0],[24,0]],\"w\":12,\"moved\":false,\"x\":12,\"h\":9,\"y\":0,\"i\":\"5496fa64-5d86-4530-9e58-c7f6e3a96178\",\"id\":\"5496fa64-5d86-4530-9e58-c7f6e3a96178\",\"xOffSet\":24,\"bottomLine\":[[12,9],[24,9]]},{\"yOffSet\":27,\"topLine\":[[0,18],[12,18]],\"w\":12,\"moved\":false,\"x\":0,\"h\":9,\"y\":29,\"i\":\"68eb3d09-29af-47fe-a0b0-eb59a66435f9\",\"id\":\"68eb3d09-29af-47fe-a0b0-eb59a66435f9\",\"xOffSet\":12,\"bottomLine\":[[0,27],[12,27]]},{\"yOffSet\":18,\"topLine\":[[12,9],[24,9]],\"w\":12,\"moved\":false,\"x\":12,\"h\":9,\"y\":9,\"i\":\"f6161606-4e63-4de7-85b8-b89789fcfce1\",\"id\":\"f6161606-4e63-4de7-85b8-b89789fcfce1\",\"xOffSet\":24,\"bottomLine\":[[12,18],[24,18]]},{\"yOffSet\":18,\"topLine\":[[0,9],[12,9]],\"w\":12,\"moved\":false,\"x\":0,\"h\":9,\"y\":9,\"i\":\"f2b74c75-dd85-4007-ab5f-6ae1e90845b5\",\"id\":\"f2b74c75-dd85-4007-ab5f-6ae1e90845b5\",\"xOffSet\":12,\"bottomLine\":[[0,18],[12,18]]},{\"w\":24,\"moved\":false,\"x\":0,\"h\":11,\"y\":18,\"i\":\"d57b2854-a86a-4537-81b6-175114c7258c\",\"id\":\"d57b2854-a86a-4537-81b6-175114c7258c\"}]', 1, 1, '2020-09-02 17:08:32.000000', '2020-09-08 12:48:54.000000', 1, '84cd5909-16ee-446c-8526-6379759223b2');
 INSERT INTO `bi_dashboard` VALUES ('db707ab4-0102-4123-a366-4420a6aafe43', '我的演示概览', '演示看板', '[{\"yOffSet\":18,\"topLine\":[[0,9],[12,9]],\"w\":12,\"moved\":false,\"x\":0,\"h\":9,\"y\":9,\"i\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"id\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"xOffSet\":12,\"bottomLine\":[[0,18],[12,18]]},{\"yOffSet\":9,\"topLine\":[[12,0],[24,0]],\"w\":12,\"moved\":false,\"x\":12,\"h\":9,\"y\":0,\"i\":\"5496fa64-5d86-4530-9e58-c7f6e3a96178\",\"id\":\"5496fa64-5d86-4530-9e58-c7f6e3a96178\",\"xOffSet\":24,\"bottomLine\":[[12,9],[24,9]]},{\"yOffSet\":9,\"topLine\":[[0,0],[12,0]],\"w\":12,\"moved\":false,\"x\":0,\"h\":9,\"y\":0,\"i\":\"f2b74c75-dd85-4007-ab5f-6ae1e90845b5\",\"id\":\"f2b74c75-dd85-4007-ab5f-6ae1e90845b5\",\"xOffSet\":12,\"bottomLine\":[[0,9],[12,9]]},{\"yOffSet\":18,\"topLine\":[[12,9],[24,9]],\"w\":12,\"moved\":false,\"x\":12,\"h\":9,\"y\":9,\"i\":\"d57b2854-a86a-4537-81b6-175114c7258c\",\"id\":\"d57b2854-a86a-4537-81b6-175114c7258c\",\"xOffSet\":24,\"bottomLine\":[[12,18],[24,18]]},{\"w\":12,\"moved\":false,\"x\":0,\"h\":9,\"y\":18,\"i\":\"f6161606-4e63-4de7-85b8-b89789fcfce1\",\"id\":\"f6161606-4e63-4de7-85b8-b89789fcfce1\"}]', 0, 1, '2020-08-29 12:27:11.000000', '2020-09-08 11:51:09.000000', 1, '0b5861f1-6362-45e1-8f02-ac21e7983ad7');
+INSERT INTO `bi_dashboard` VALUES ('ed7a6e5f-a159-4b9f-bcf1-1eb1094fce51', '的鹅鹅鹅', '', '[{\"id\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"x\":0,\"y\":0,\"w\":12,\"h\":9,\"i\":\"03cce4e1-75b1-4fa6-8d47-943b3ae09c7b\",\"moved\":false,\"yOffSet\":9,\"xOffSet\":12,\"bottomLine\":[[0,9],[12,9]],\"topLine\":[[0,0],[12,0]]},{\"id\":\"0c02aaa8-7b63-437d-a293-7c665e7ebee8\",\"x\":12,\"y\":0,\"w\":6,\"h\":3,\"i\":\"0c02aaa8-7b63-437d-a293-7c665e7ebee8\",\"moved\":false,\"yOffSet\":18,\"xOffSet\":12,\"bottomLine\":[[0,18],[12,18]],\"topLine\":[[0,9],[12,9]]},{\"id\":\"57f0ef26-1279-4be8-bf34-793c5d426eaf\",\"x\":12,\"y\":3,\"w\":12,\"h\":9,\"i\":\"57f0ef26-1279-4be8-bf34-793c5d426eaf\",\"moved\":false,\"yOffSet\":27,\"xOffSet\":12,\"bottomLine\":[[0,27],[12,27]],\"topLine\":[[0,18],[12,18]]},{\"id\":\"45fc5e96-912b-496b-8c32-d69873c9d5e3\",\"x\":18,\"y\":0,\"w\":6,\"h\":3,\"i\":\"45fc5e96-912b-496b-8c32-d69873c9d5e3\",\"moved\":false}]', 0, 1, '2021-05-13 17:12:59.000000', '2021-05-13 17:13:33.000000', 1, '0b5861f1-6362-45e1-8f02-ac21e7983ad7');
 
 -- ----------------------------
 -- Table structure for bi_datasource
 -- ----------------------------
 DROP TABLE IF EXISTS `bi_datasource`;
 CREATE TABLE `bi_datasource`  (
-  `source_id` int(0) NOT NULL AUTO_INCREMENT,
+  `source_id` int NOT NULL AUTO_INCREMENT,
   `base_alias` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `creator_id` int(0) NOT NULL,
+  `creator_id` int NOT NULL,
   `conn_url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `password` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -180,16 +185,16 @@ CREATE TABLE `bi_datasource`  (
   `driver_class` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `status` tinyint(1) NULL DEFAULT 1,
   `is_private` tinyint(1) NULL DEFAULT 1,
-  `updated_at` datetime(0) NULL DEFAULT NULL,
-  `created_at` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `updated_at` datetime NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
   `databasename` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`source_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bi_datasource
 -- ----------------------------
-INSERT INTO `bi_datasource` VALUES (12, '演示数据源', 1, 'jdbc:mysql://192.168.9.32:3306/demo?useSSL=false&serverTimezone=Asia/Shanghai', 'root', 'MyNewPass4!', 'doris', 'com.mysql.jdbc.Driver', 1, 1, '2020-08-27 13:25:51', '2020-08-27 13:25:51', NULL);
+INSERT INTO `bi_datasource` VALUES (12, '演示数据源', 1, 'jdbc:mysql://localhost:3306/demo?useSSL=false&serverTimezone=Asia/Shanghai', 'root', 'zhangfeng', 'doris', 'com.mysql.jdbc.Driver', 1, 1, '2020-08-27 13:25:51', '2020-08-27 13:25:51', NULL);
 INSERT INTO `bi_datasource` VALUES (13, '测试', 1, 'jdbc:mysql://localhost:3306/sql12298540?useSSL=false&serverTimezone=Asia/Shanghai', 'root', 'zhangfeng', 'mysql', 'com.mysql.cj.jdbc.Driver', 1, 1, '2020-08-29 10:30:15', '2020-08-29 10:30:15', '');
 
 -- ----------------------------
@@ -197,18 +202,18 @@ INSERT INTO `bi_datasource` VALUES (13, '测试', 1, 'jdbc:mysql://localhost:330
 -- ----------------------------
 DROP TABLE IF EXISTS `bi_datasource_table`;
 CREATE TABLE `bi_datasource_table`  (
-  `table_id` int(0) NOT NULL AUTO_INCREMENT,
+  `table_id` int NOT NULL AUTO_INCREMENT,
   `table_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `table_alias` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `created_at` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `updated_at` datetime(0) NULL DEFAULT NULL,
-  `creator_id` int(0) NULL DEFAULT NULL,
-  `status` tinyint(0) NULL DEFAULT NULL,
-  `source_id` int(0) NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL DEFAULT NULL,
+  `creator_id` int NULL DEFAULT NULL,
+  `status` tinyint NULL DEFAULT NULL,
+  `source_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`table_id`) USING BTREE,
   INDEX `INDEX_Reference_source_id`(`source_id`) USING BTREE,
   CONSTRAINT `FK_Reference_source_id` FOREIGN KEY (`source_id`) REFERENCES `bi_datasource` (`source_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 317 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 316 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bi_datasource_table
@@ -224,21 +229,21 @@ INSERT INTO `bi_datasource_table` VALUES (316, 'demo2', '演示2', '2020-08-31 1
 -- ----------------------------
 DROP TABLE IF EXISTS `bi_datasource_tablefield`;
 CREATE TABLE `bi_datasource_tablefield`  (
-  `field_id` int(0) NOT NULL AUTO_INCREMENT,
-  `table_id` int(0) NULL DEFAULT NULL,
+  `field_id` int NOT NULL AUTO_INCREMENT,
+  `table_id` int NULL DEFAULT NULL,
   `field_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `field_cname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `field_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `is_empty` tinyint(0) NULL DEFAULT NULL,
-  `createdate` datetime(0) NULL DEFAULT NULL,
-  `create_user_id` int(0) NULL DEFAULT NULL,
+  `is_empty` tinyint NULL DEFAULT NULL,
+  `createdate` datetime NULL DEFAULT NULL,
+  `create_user_id` int NULL DEFAULT NULL,
   `create_user_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `is_enable` tinyint(0) NULL DEFAULT NULL,
-  `field_lenght` int(0) NULL DEFAULT NULL,
+  `is_enable` tinyint NULL DEFAULT NULL,
+  `field_lenght` int NULL DEFAULT NULL,
   PRIMARY KEY (`field_id`) USING BTREE,
   INDEX `INDEX_Reference_4_table_id`(`table_id`) USING BTREE,
   CONSTRAINT `FK_Reference_4_table_id` FOREIGN KEY (`table_id`) REFERENCES `bi_datasource_table` (`table_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 7524 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7523 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bi_datasource_tablefield
@@ -291,13 +296,13 @@ CREATE TABLE `bi_project`  (
   `project_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `project_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `project_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_at` datetime(0) NOT NULL,
-  `creator_id` int(0) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `creator_id` int NOT NULL,
   `private_status` tinyint(1) NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL,
+  `status` int NULL DEFAULT NULL,
   `creator_username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`project_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bi_project
@@ -316,15 +321,15 @@ CREATE TABLE `bi_report`  (
   `report_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `report_sql` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `report_desc` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `creator_id` int(0) NOT NULL,
-  `create_date` datetime(0) NOT NULL,
+  `creator_id` int NOT NULL,
+  `create_date` datetime NOT NULL,
   `private_status` tinyint(1) NOT NULL,
-  `status` int(0) NOT NULL,
-  `source_id` int(0) NOT NULL,
-  `update_date` datetime(0) NULL DEFAULT NULL,
+  `status` int NOT NULL,
+  `source_id` int NOT NULL,
+  `update_date` datetime NULL DEFAULT NULL,
   `field_cnames` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`report_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bi_report
@@ -338,13 +343,13 @@ INSERT INTO `bi_report` VALUES ('dc6842ab-928d-4980-bcb9-01246cf1db83', '订单�
 -- ----------------------------
 DROP TABLE IF EXISTS `bi_report_share`;
 CREATE TABLE `bi_report_share`  (
-  `share_id` int(0) NOT NULL AUTO_INCREMENT,
+  `share_id` int NOT NULL AUTO_INCREMENT,
   `report_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `to_user_id` int(0) NOT NULL,
-  `share_user_id` int(0) NOT NULL,
-  `share_date` datetime(0) NULL DEFAULT NULL,
+  `to_user_id` int NOT NULL,
+  `share_user_id` int NOT NULL,
+  `share_date` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`share_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bi_report_share
@@ -358,13 +363,13 @@ INSERT INTO `bi_report_share` VALUES (6, 'c2f1dc04-336e-473e-8dbf-0dd329a6bb10',
 -- ----------------------------
 DROP TABLE IF EXISTS `bi_share_dashboard`;
 CREATE TABLE `bi_share_dashboard`  (
-  `share_id` int(0) NOT NULL AUTO_INCREMENT,
-  `to_user_id` int(0) NOT NULL,
-  `share_user_id` int(0) NOT NULL,
+  `share_id` int NOT NULL AUTO_INCREMENT,
+  `to_user_id` int NOT NULL,
+  `share_user_id` int NOT NULL,
   `dashboard_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `share_date` datetime(0) NOT NULL,
+  `share_date` datetime NOT NULL,
   PRIMARY KEY (`share_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bi_share_dashboard
@@ -386,7 +391,7 @@ INSERT INTO `bi_share_dashboard` VALUES (11, 100, 1, '10ea9f87-0634-45dd-8081-97
 -- ----------------------------
 DROP TABLE IF EXISTS `gen_table`;
 CREATE TABLE `gen_table`  (
-  `table_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `table_id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
   `table_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '表名称',
   `table_comment` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '表描述',
   `class_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '实体类名称',
@@ -398,12 +403,12 @@ CREATE TABLE `gen_table`  (
   `function_author` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '生成功能作者',
   `options` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '其它生成选项',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`table_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '代码生成业务表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '代码生成业务表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of gen_table
@@ -414,7 +419,7 @@ CREATE TABLE `gen_table`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `gen_table_column`;
 CREATE TABLE `gen_table_column`  (
-  `column_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `column_id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
   `table_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '归属表编号',
   `column_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '列名称',
   `column_comment` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '列描述',
@@ -431,13 +436,13 @@ CREATE TABLE `gen_table_column`  (
   `query_type` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT 'EQ' COMMENT '查询方式（等于、不等于、大于、小于、范围）',
   `html_type` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）',
   `dict_type` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '字典类型',
-  `sort` int(0) NULL DEFAULT NULL COMMENT '排序',
+  `sort` int NULL DEFAULT NULL COMMENT '排序',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`column_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of gen_table_column
@@ -509,9 +514,9 @@ CREATE TABLE `qrtz_fired_triggers`  (
   `trigger_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `trigger_group` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `instance_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `fired_time` bigint(0) NOT NULL,
-  `sched_time` bigint(0) NOT NULL,
-  `priority` int(0) NOT NULL,
+  `fired_time` bigint NOT NULL,
+  `sched_time` bigint NOT NULL,
+  `priority` int NOT NULL,
   `state` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `job_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `job_group` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
@@ -545,12 +550,12 @@ CREATE TABLE `qrtz_job_details`  (
 -- ----------------------------
 -- Records of qrtz_job_details
 -- ----------------------------
-INSERT INTO `qrtz_job_details` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME1', 'DEFAULT', NULL, 'com.oceanus.common.utils.job.QuartzDisallowConcurrentExecution', '0', '1', '0', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000F5441534B5F50524F5045525449455373720026636F6D2E646174612E70726F6A6563742E6D6F6E69746F722E646F6D61696E2E5379734A6F6200000000000000010200084C000A636F6E63757272656E747400124C6A6176612F6C616E672F537472696E673B4C000E63726F6E45787072657373696F6E71007E00094C000C696E766F6B6554617267657471007E00094C00086A6F6247726F757071007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C00076A6F624E616D6571007E00094C000D6D697366697265506F6C69637971007E00094C000673746174757371007E000978720028636F6D2E646174612E6672616D65776F726B2E7765622E646F6D61696E2E42617365456E7469747900000000000000010200094C0009626567696E54696D6571007E00094C0008637265617465427971007E00094C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C0007656E6454696D6571007E00094C0006706172616D7371007E00034C000672656D61726B71007E00094C000B73656172636856616C756571007E00094C0008757064617465427971007E00094C000A75706461746554696D6571007E000C78707074000561646D696E7372000E6A6176612E7574696C2E44617465686A81014B59741903000078707708000001622CDE29E07870707400007070707400013174000E302F3130202A202A202A202A203F74001172795461736B2E72794E6F506172616D7374000744454641554C547372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B02000078700000000000000001740018E7B3BBE7BB9FE9BB98E8AEA4EFBC88E697A0E58F82EFBC8974000133740001317800);
-INSERT INTO `qrtz_job_details` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME2', 'DEFAULT', NULL, 'com.oceanus.common.utils.job.QuartzDisallowConcurrentExecution', '0', '1', '0', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000F5441534B5F50524F5045525449455373720026636F6D2E646174612E70726F6A6563742E6D6F6E69746F722E646F6D61696E2E5379734A6F6200000000000000010200084C000A636F6E63757272656E747400124C6A6176612F6C616E672F537472696E673B4C000E63726F6E45787072657373696F6E71007E00094C000C696E766F6B6554617267657471007E00094C00086A6F6247726F757071007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C00076A6F624E616D6571007E00094C000D6D697366697265506F6C69637971007E00094C000673746174757371007E000978720028636F6D2E646174612E6672616D65776F726B2E7765622E646F6D61696E2E42617365456E7469747900000000000000010200094C0009626567696E54696D6571007E00094C0008637265617465427971007E00094C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C0007656E6454696D6571007E00094C0006706172616D7371007E00034C000672656D61726B71007E00094C000B73656172636856616C756571007E00094C0008757064617465427971007E00094C000A75706461746554696D6571007E000C78707074000561646D696E7372000E6A6176612E7574696C2E44617465686A81014B59741903000078707708000001622CDE29E07870707400007070707400013174000E302F3135202A202A202A202A203F74001572795461736B2E7279506172616D7328277279272974000744454641554C547372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B02000078700000000000000002740018E7B3BBE7BB9FE9BB98E8AEA4EFBC88E69C89E58F82EFBC8974000133740001317800);
-INSERT INTO `qrtz_job_details` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME3', 'DEFAULT', NULL, 'com.oceanus.common.utils.job.QuartzDisallowConcurrentExecution', '0', '1', '0', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000F5441534B5F50524F5045525449455373720026636F6D2E646174612E70726F6A6563742E6D6F6E69746F722E646F6D61696E2E5379734A6F6200000000000000010200084C000A636F6E63757272656E747400124C6A6176612F6C616E672F537472696E673B4C000E63726F6E45787072657373696F6E71007E00094C000C696E766F6B6554617267657471007E00094C00086A6F6247726F757071007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C00076A6F624E616D6571007E00094C000D6D697366697265506F6C69637971007E00094C000673746174757371007E000978720028636F6D2E646174612E6672616D65776F726B2E7765622E646F6D61696E2E42617365456E7469747900000000000000010200094C0009626567696E54696D6571007E00094C0008637265617465427971007E00094C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C0007656E6454696D6571007E00094C0006706172616D7371007E00034C000672656D61726B71007E00094C000B73656172636856616C756571007E00094C0008757064617465427971007E00094C000A75706461746554696D6571007E000C78707074000561646D696E7372000E6A6176612E7574696C2E44617465686A81014B59741903000078707708000001622CDE29E07870707400007070707400013174000E302F3230202A202A202A202A203F74003872795461736B2E72794D756C7469706C65506172616D7328277279272C20747275652C20323030304C2C203331362E3530442C203130302974000744454641554C547372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B02000078700000000000000003740018E7B3BBE7BB9FE9BB98E8AEA4EFBC88E5A49AE58F82EFBC8974000133740001317800);
-INSERT INTO `qrtz_job_details` VALUES ('VenusScheduler', 'TASK_CLASS_NAME1', 'DEFAULT', NULL, 'com.oceanus.common.utils.job.QuartzDisallowConcurrentExecution', '0', '1', '0', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000F5441534B5F50524F5045525449455373720025636F6D2E646174612E73797374656D2E6D6F6E69746F722E646F6D61696E2E5379734A6F6200000000000000010200084C000A636F6E63757272656E747400124C6A6176612F6C616E672F537472696E673B4C000E63726F6E45787072657373696F6E71007E00094C000C696E766F6B6554617267657471007E00094C00086A6F6247726F757071007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C00076A6F624E616D6571007E00094C000D6D697366697265506F6C69637971007E00094C000673746174757371007E000978720028636F6D2E646174612E6672616D65776F726B2E7765622E646F6D61696E2E42617365456E7469747900000000000000010200094C0009626567696E54696D6571007E00094C0008637265617465427971007E00094C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C0007656E6454696D6571007E00094C0006706172616D7371007E00034C000672656D61726B71007E00094C000B73656172636856616C756571007E00094C0008757064617465427971007E00094C000A75706461746554696D6571007E000C78707074000561646D696E7372000E6A6176612E7574696C2E44617465686A81014B59741903000078707708000001622CDE29E07870707400007070707400013174000E302F3130202A202A202A202A203F74001172795461736B2E72794E6F506172616D7374000744454641554C547372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B02000078700000000000000001740018E7B3BBE7BB9FE9BB98E8AEA4EFBC88E697A0E58F82EFBC8974000133740001317800);
-INSERT INTO `qrtz_job_details` VALUES ('VenusScheduler', 'TASK_CLASS_NAME2', 'DEFAULT', NULL, 'com.oceanus.common.utils.job.QuartzDisallowConcurrentExecution', '0', '1', '0', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000F5441534B5F50524F5045525449455373720025636F6D2E646174612E73797374656D2E6D6F6E69746F722E646F6D61696E2E5379734A6F6200000000000000010200084C000A636F6E63757272656E747400124C6A6176612F6C616E672F537472696E673B4C000E63726F6E45787072657373696F6E71007E00094C000C696E766F6B6554617267657471007E00094C00086A6F6247726F757071007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C00076A6F624E616D6571007E00094C000D6D697366697265506F6C69637971007E00094C000673746174757371007E000978720028636F6D2E646174612E6672616D65776F726B2E7765622E646F6D61696E2E42617365456E7469747900000000000000010200094C0009626567696E54696D6571007E00094C0008637265617465427971007E00094C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C0007656E6454696D6571007E00094C0006706172616D7371007E00034C000672656D61726B71007E00094C000B73656172636856616C756571007E00094C0008757064617465427971007E00094C000A75706461746554696D6571007E000C78707074000561646D696E7372000E6A6176612E7574696C2E44617465686A81014B59741903000078707708000001622CDE29E07870707400007070707400013174000E302F3135202A202A202A202A203F74001572795461736B2E7279506172616D7328277279272974000744454641554C547372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B02000078700000000000000002740018E7B3BBE7BB9FE9BB98E8AEA4EFBC88E69C89E58F82EFBC8974000133740001317800);
-INSERT INTO `qrtz_job_details` VALUES ('VenusScheduler', 'TASK_CLASS_NAME3', 'DEFAULT', NULL, 'com.oceanus.common.utils.job.QuartzDisallowConcurrentExecution', '0', '1', '0', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000F5441534B5F50524F5045525449455373720025636F6D2E646174612E73797374656D2E6D6F6E69746F722E646F6D61696E2E5379734A6F6200000000000000010200084C000A636F6E63757272656E747400124C6A6176612F6C616E672F537472696E673B4C000E63726F6E45787072657373696F6E71007E00094C000C696E766F6B6554617267657471007E00094C00086A6F6247726F757071007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C00076A6F624E616D6571007E00094C000D6D697366697265506F6C69637971007E00094C000673746174757371007E000978720028636F6D2E646174612E6672616D65776F726B2E7765622E646F6D61696E2E42617365456E7469747900000000000000010200094C0009626567696E54696D6571007E00094C0008637265617465427971007E00094C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C0007656E6454696D6571007E00094C0006706172616D7371007E00034C000672656D61726B71007E00094C000B73656172636856616C756571007E00094C0008757064617465427971007E00094C000A75706461746554696D6571007E000C78707074000561646D696E7372000E6A6176612E7574696C2E44617465686A81014B59741903000078707708000001622CDE29E07870707400007070707400013174000E302F3230202A202A202A202A203F74003872795461736B2E72794D756C7469706C65506172616D7328277279272C20747275652C20323030304C2C203331362E3530442C203130302974000744454641554C547372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B02000078700000000000000003740018E7B3BBE7BB9FE9BB98E8AEA4EFBC88E5A49AE58F82EFBC8974000133740001317800);
+INSERT INTO `qrtz_job_details` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME1', 'DEFAULT', NULL, 'com.data.common.utils.job.QuartzDisallowConcurrentExecution', '0', '1', '0', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000F5441534B5F50524F5045525449455373720026636F6D2E646174612E70726F6A6563742E6D6F6E69746F722E646F6D61696E2E5379734A6F6200000000000000010200084C000A636F6E63757272656E747400124C6A6176612F6C616E672F537472696E673B4C000E63726F6E45787072657373696F6E71007E00094C000C696E766F6B6554617267657471007E00094C00086A6F6247726F757071007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C00076A6F624E616D6571007E00094C000D6D697366697265506F6C69637971007E00094C000673746174757371007E000978720028636F6D2E646174612E6672616D65776F726B2E7765622E646F6D61696E2E42617365456E7469747900000000000000010200094C0009626567696E54696D6571007E00094C0008637265617465427971007E00094C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C0007656E6454696D6571007E00094C0006706172616D7371007E00034C000672656D61726B71007E00094C000B73656172636856616C756571007E00094C0008757064617465427971007E00094C000A75706461746554696D6571007E000C78707074000561646D696E7372000E6A6176612E7574696C2E44617465686A81014B59741903000078707708000001622CDE29E07870707400007070707400013174000E302F3130202A202A202A202A203F74001172795461736B2E72794E6F506172616D7374000744454641554C547372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B02000078700000000000000001740018E7B3BBE7BB9FE9BB98E8AEA4EFBC88E697A0E58F82EFBC8974000133740001317800);
+INSERT INTO `qrtz_job_details` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME2', 'DEFAULT', NULL, 'com.data.common.utils.job.QuartzDisallowConcurrentExecution', '0', '1', '0', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000F5441534B5F50524F5045525449455373720026636F6D2E646174612E70726F6A6563742E6D6F6E69746F722E646F6D61696E2E5379734A6F6200000000000000010200084C000A636F6E63757272656E747400124C6A6176612F6C616E672F537472696E673B4C000E63726F6E45787072657373696F6E71007E00094C000C696E766F6B6554617267657471007E00094C00086A6F6247726F757071007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C00076A6F624E616D6571007E00094C000D6D697366697265506F6C69637971007E00094C000673746174757371007E000978720028636F6D2E646174612E6672616D65776F726B2E7765622E646F6D61696E2E42617365456E7469747900000000000000010200094C0009626567696E54696D6571007E00094C0008637265617465427971007E00094C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C0007656E6454696D6571007E00094C0006706172616D7371007E00034C000672656D61726B71007E00094C000B73656172636856616C756571007E00094C0008757064617465427971007E00094C000A75706461746554696D6571007E000C78707074000561646D696E7372000E6A6176612E7574696C2E44617465686A81014B59741903000078707708000001622CDE29E07870707400007070707400013174000E302F3135202A202A202A202A203F74001572795461736B2E7279506172616D7328277279272974000744454641554C547372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B02000078700000000000000002740018E7B3BBE7BB9FE9BB98E8AEA4EFBC88E69C89E58F82EFBC8974000133740001317800);
+INSERT INTO `qrtz_job_details` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME3', 'DEFAULT', NULL, 'com.data.common.utils.job.QuartzDisallowConcurrentExecution', '0', '1', '0', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000F5441534B5F50524F5045525449455373720026636F6D2E646174612E70726F6A6563742E6D6F6E69746F722E646F6D61696E2E5379734A6F6200000000000000010200084C000A636F6E63757272656E747400124C6A6176612F6C616E672F537472696E673B4C000E63726F6E45787072657373696F6E71007E00094C000C696E766F6B6554617267657471007E00094C00086A6F6247726F757071007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C00076A6F624E616D6571007E00094C000D6D697366697265506F6C69637971007E00094C000673746174757371007E000978720028636F6D2E646174612E6672616D65776F726B2E7765622E646F6D61696E2E42617365456E7469747900000000000000010200094C0009626567696E54696D6571007E00094C0008637265617465427971007E00094C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C0007656E6454696D6571007E00094C0006706172616D7371007E00034C000672656D61726B71007E00094C000B73656172636856616C756571007E00094C0008757064617465427971007E00094C000A75706461746554696D6571007E000C78707074000561646D696E7372000E6A6176612E7574696C2E44617465686A81014B59741903000078707708000001622CDE29E07870707400007070707400013174000E302F3230202A202A202A202A203F74003872795461736B2E72794D756C7469706C65506172616D7328277279272C20747275652C20323030304C2C203331362E3530442C203130302974000744454641554C547372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B02000078700000000000000003740018E7B3BBE7BB9FE9BB98E8AEA4EFBC88E5A49AE58F82EFBC8974000133740001317800);
+INSERT INTO `qrtz_job_details` VALUES ('VenusScheduler', 'TASK_CLASS_NAME1', 'DEFAULT', NULL, 'com.oceanus.common.utils.job.QuartzDisallowConcurrentExecution', '0', '1', '0', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000F5441534B5F50524F5045525449455373720028636F6D2E6F6365616E75732E73797374656D2E6D6F6E69746F722E646F6D61696E2E5379734A6F6200000000000000010200084C000A636F6E63757272656E747400124C6A6176612F6C616E672F537472696E673B4C000E63726F6E45787072657373696F6E71007E00094C000C696E766F6B6554617267657471007E00094C00086A6F6247726F757071007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C00076A6F624E616D6571007E00094C000D6D697366697265506F6C69637971007E00094C000673746174757371007E00097872002B636F6D2E6F6365616E75732E6672616D65776F726B2E7765622E646F6D61696E2E42617365456E7469747900000000000000010200094C0009626567696E54696D6571007E00094C0008637265617465427971007E00094C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C0007656E6454696D6571007E00094C0006706172616D7371007E00034C000672656D61726B71007E00094C000B73656172636856616C756571007E00094C0008757064617465427971007E00094C000A75706461746554696D6571007E000C78707074000561646D696E7372000E6A6176612E7574696C2E44617465686A81014B59741903000078707708000001622CDE29E07870707400007070707400013174000E302F3130202A202A202A202A203F74001172795461736B2E72794E6F506172616D7374000744454641554C547372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B02000078700000000000000001740018E7B3BBE7BB9FE9BB98E8AEA4EFBC88E697A0E58F82EFBC8974000133740001317800);
+INSERT INTO `qrtz_job_details` VALUES ('VenusScheduler', 'TASK_CLASS_NAME2', 'DEFAULT', NULL, 'com.oceanus.common.utils.job.QuartzDisallowConcurrentExecution', '0', '1', '0', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000F5441534B5F50524F5045525449455373720028636F6D2E6F6365616E75732E73797374656D2E6D6F6E69746F722E646F6D61696E2E5379734A6F6200000000000000010200084C000A636F6E63757272656E747400124C6A6176612F6C616E672F537472696E673B4C000E63726F6E45787072657373696F6E71007E00094C000C696E766F6B6554617267657471007E00094C00086A6F6247726F757071007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C00076A6F624E616D6571007E00094C000D6D697366697265506F6C69637971007E00094C000673746174757371007E00097872002B636F6D2E6F6365616E75732E6672616D65776F726B2E7765622E646F6D61696E2E42617365456E7469747900000000000000010200094C0009626567696E54696D6571007E00094C0008637265617465427971007E00094C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C0007656E6454696D6571007E00094C0006706172616D7371007E00034C000672656D61726B71007E00094C000B73656172636856616C756571007E00094C0008757064617465427971007E00094C000A75706461746554696D6571007E000C78707074000561646D696E7372000E6A6176612E7574696C2E44617465686A81014B59741903000078707708000001622CDE29E07870707400007070707400013174000E302F3135202A202A202A202A203F74001572795461736B2E7279506172616D7328277279272974000744454641554C547372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B02000078700000000000000002740018E7B3BBE7BB9FE9BB98E8AEA4EFBC88E69C89E58F82EFBC8974000133740001317800);
+INSERT INTO `qrtz_job_details` VALUES ('VenusScheduler', 'TASK_CLASS_NAME3', 'DEFAULT', NULL, 'com.oceanus.common.utils.job.QuartzDisallowConcurrentExecution', '0', '1', '0', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000F5441534B5F50524F5045525449455373720028636F6D2E6F6365616E75732E73797374656D2E6D6F6E69746F722E646F6D61696E2E5379734A6F6200000000000000010200084C000A636F6E63757272656E747400124C6A6176612F6C616E672F537472696E673B4C000E63726F6E45787072657373696F6E71007E00094C000C696E766F6B6554617267657471007E00094C00086A6F6247726F757071007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C00076A6F624E616D6571007E00094C000D6D697366697265506F6C69637971007E00094C000673746174757371007E00097872002B636F6D2E6F6365616E75732E6672616D65776F726B2E7765622E646F6D61696E2E42617365456E7469747900000000000000010200094C0009626567696E54696D6571007E00094C0008637265617465427971007E00094C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C0007656E6454696D6571007E00094C0006706172616D7371007E00034C000672656D61726B71007E00094C000B73656172636856616C756571007E00094C0008757064617465427971007E00094C000A75706461746554696D6571007E000C78707074000561646D696E7372000E6A6176612E7574696C2E44617465686A81014B59741903000078707708000001622CDE29E07870707400007070707400013174000E302F3230202A202A202A202A203F74003872795461736B2E72794D756C7469706C65506172616D7328277279272C20747275652C20323030304C2C203331362E3530442C203130302974000744454641554C547372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B02000078700000000000000003740018E7B3BBE7BB9FE9BB98E8AEA4EFBC88E5A49AE58F82EFBC8974000133740001317800);
 
 -- ----------------------------
 -- Table structure for qrtz_locks
@@ -591,8 +596,8 @@ DROP TABLE IF EXISTS `qrtz_scheduler_state`;
 CREATE TABLE `qrtz_scheduler_state`  (
   `sched_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `instance_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `last_checkin_time` bigint(0) NOT NULL,
-  `checkin_interval` bigint(0) NOT NULL,
+  `last_checkin_time` bigint NOT NULL,
+  `checkin_interval` bigint NOT NULL,
   PRIMARY KEY (`sched_name`, `instance_name`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
@@ -600,8 +605,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- Records of qrtz_scheduler_state
 -- ----------------------------
 INSERT INTO `qrtz_scheduler_state` VALUES ('RuoyiScheduler', 'doris011599212134904', 1599279063572, 15000);
-INSERT INTO `qrtz_scheduler_state` VALUES ('VenusScheduler', 'DESKTOP-16KRP7V1599542877231', 1599543020186, 15000);
-INSERT INTO `qrtz_scheduler_state` VALUES ('VenusScheduler', 'doris011599537364615', 1599542995967, 15000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('VenusScheduler', 'DESKTOP-16KRP7V1621832862920', 1621832943660, 15000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -611,9 +615,9 @@ CREATE TABLE `qrtz_simple_triggers`  (
   `sched_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `trigger_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `trigger_group` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `repeat_count` bigint(0) NOT NULL,
-  `repeat_interval` bigint(0) NOT NULL,
-  `times_triggered` bigint(0) NOT NULL,
+  `repeat_count` bigint NOT NULL,
+  `repeat_interval` bigint NOT NULL,
+  `times_triggered` bigint NOT NULL,
   PRIMARY KEY (`sched_name`, `trigger_name`, `trigger_group`) USING BTREE,
   CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
@@ -633,10 +637,10 @@ CREATE TABLE `qrtz_simprop_triggers`  (
   `str_prop_1` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `str_prop_2` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `str_prop_3` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `int_prop_1` int(0) NULL DEFAULT NULL,
-  `int_prop_2` int(0) NULL DEFAULT NULL,
-  `long_prop_1` bigint(0) NULL DEFAULT NULL,
-  `long_prop_2` bigint(0) NULL DEFAULT NULL,
+  `int_prop_1` int NULL DEFAULT NULL,
+  `int_prop_2` int NULL DEFAULT NULL,
+  `long_prop_1` bigint NULL DEFAULT NULL,
+  `long_prop_2` bigint NULL DEFAULT NULL,
   `dec_prop_1` decimal(13, 4) NULL DEFAULT NULL,
   `dec_prop_2` decimal(13, 4) NULL DEFAULT NULL,
   `bool_prop_1` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
@@ -660,15 +664,15 @@ CREATE TABLE `qrtz_triggers`  (
   `job_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `job_group` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `description` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `next_fire_time` bigint(0) NULL DEFAULT NULL,
-  `prev_fire_time` bigint(0) NULL DEFAULT NULL,
-  `priority` int(0) NULL DEFAULT NULL,
+  `next_fire_time` bigint NULL DEFAULT NULL,
+  `prev_fire_time` bigint NULL DEFAULT NULL,
+  `priority` int NULL DEFAULT NULL,
   `trigger_state` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `trigger_type` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `start_time` bigint(0) NOT NULL,
-  `end_time` bigint(0) NULL DEFAULT NULL,
+  `start_time` bigint NOT NULL,
+  `end_time` bigint NULL DEFAULT NULL,
   `calendar_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `misfire_instr` smallint(0) NULL DEFAULT NULL,
+  `misfire_instr` smallint NULL DEFAULT NULL,
   `job_data` blob NULL,
   PRIMARY KEY (`sched_name`, `trigger_name`, `trigger_group`) USING BTREE,
   INDEX `sched_name`(`sched_name`, `job_name`, `job_group`) USING BTREE,
@@ -681,27 +685,27 @@ CREATE TABLE `qrtz_triggers`  (
 INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME1', 'DEFAULT', 'TASK_CLASS_NAME1', 'DEFAULT', NULL, 1599212140000, -1, 5, 'PAUSED', 'CRON', 1599212135000, 0, NULL, 2, '');
 INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME2', 'DEFAULT', 'TASK_CLASS_NAME2', 'DEFAULT', NULL, 1599212145000, -1, 5, 'PAUSED', 'CRON', 1599212136000, 0, NULL, 2, '');
 INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME3', 'DEFAULT', 'TASK_CLASS_NAME3', 'DEFAULT', NULL, 1599212140000, -1, 5, 'PAUSED', 'CRON', 1599212136000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('VenusScheduler', 'TASK_CLASS_NAME1', 'DEFAULT', 'TASK_CLASS_NAME1', 'DEFAULT', NULL, 1599542880000, -1, 5, 'PAUSED', 'CRON', 1599542880000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('VenusScheduler', 'TASK_CLASS_NAME2', 'DEFAULT', 'TASK_CLASS_NAME2', 'DEFAULT', NULL, 1599542895000, -1, 5, 'PAUSED', 'CRON', 1599542884000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('VenusScheduler', 'TASK_CLASS_NAME3', 'DEFAULT', 'TASK_CLASS_NAME3', 'DEFAULT', NULL, 1599542900000, -1, 5, 'PAUSED', 'CRON', 1599542886000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('VenusScheduler', 'TASK_CLASS_NAME1', 'DEFAULT', 'TASK_CLASS_NAME1', 'DEFAULT', NULL, 1621832870000, -1, 5, 'PAUSED', 'CRON', 1621832863000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('VenusScheduler', 'TASK_CLASS_NAME2', 'DEFAULT', 'TASK_CLASS_NAME2', 'DEFAULT', NULL, 1621832865000, -1, 5, 'PAUSED', 'CRON', 1621832863000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('VenusScheduler', 'TASK_CLASS_NAME3', 'DEFAULT', 'TASK_CLASS_NAME3', 'DEFAULT', NULL, 1621832880000, -1, 5, 'PAUSED', 'CRON', 1621832863000, 0, NULL, 2, '');
 
 -- ----------------------------
 -- Table structure for sys_config
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_config`;
 CREATE TABLE `sys_config`  (
-  `config_id` int(0) NOT NULL AUTO_INCREMENT COMMENT '参数主键',
+  `config_id` int NOT NULL AUTO_INCREMENT COMMENT '参数主键',
   `config_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '参数名称',
   `config_key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '参数键名',
   `config_value` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '参数键值',
   `config_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT 'N' COMMENT '系统内置（Y是 N否）',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`config_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '参数配置表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '参数配置表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_config
@@ -715,22 +719,22 @@ INSERT INTO `sys_config` VALUES (3, '主框架页-侧边栏主题', 'sys.index.s
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept`  (
-  `dept_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '部门id',
-  `parent_id` bigint(0) NULL DEFAULT 0 COMMENT '父部门id',
+  `dept_id` bigint NOT NULL AUTO_INCREMENT COMMENT '部门id',
+  `parent_id` bigint NULL DEFAULT 0 COMMENT '父部门id',
   `ancestors` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '祖级列表',
   `dept_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '部门名称',
-  `order_num` int(0) NULL DEFAULT 0 COMMENT '显示顺序',
+  `order_num` int NULL DEFAULT 0 COMMENT '显示顺序',
   `leader` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '负责人',
   `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '联系电话',
   `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '邮箱',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '部门状态（0正常 1停用）',
   `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`dept_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 200 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '部门表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 109 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '部门表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dept
@@ -751,8 +755,8 @@ INSERT INTO `sys_dept` VALUES (109, 102, '0,100,102', '财务部门', 2, '若依
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_data`;
 CREATE TABLE `sys_dict_data`  (
-  `dict_code` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '字典编码',
-  `dict_sort` int(0) NULL DEFAULT 0 COMMENT '字典排序',
+  `dict_code` bigint NOT NULL AUTO_INCREMENT COMMENT '字典编码',
+  `dict_sort` int NULL DEFAULT 0 COMMENT '字典排序',
   `dict_label` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '字典标签',
   `dict_value` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '字典键值',
   `dict_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '字典类型',
@@ -761,12 +765,12 @@ CREATE TABLE `sys_dict_data`  (
   `is_default` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT 'N' COMMENT '是否默认（Y是 N否）',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '状态（0正常 1停用）',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 128 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典数据表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 127 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典数据表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -833,18 +837,18 @@ INSERT INTO `sys_dict_data` VALUES (127, 13, 'VARCHAR', 'VARCHAR', 'data_type', 
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_type`;
 CREATE TABLE `sys_dict_type`  (
-  `dict_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '字典主键',
+  `dict_id` bigint NOT NULL AUTO_INCREMENT COMMENT '字典主键',
   `dict_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '字典名称',
   `dict_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '字典类型',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '状态（0正常 1停用）',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_id`) USING BTREE,
   UNIQUE INDEX `dict_type`(`dict_type`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 108 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典类型表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 107 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典类型表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dict_type
@@ -873,7 +877,7 @@ INSERT INTO `sys_dict_type` VALUES (107, '数据类型', 'data_type', '0', 'admi
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_job`;
 CREATE TABLE `sys_job`  (
-  `job_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '任务ID',
+  `job_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务ID',
   `job_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '任务名称',
   `job_group` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'DEFAULT' COMMENT '任务组名',
   `invoke_target` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '调用目标字符串',
@@ -882,12 +886,12 @@ CREATE TABLE `sys_job`  (
   `concurrent` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '是否并发执行（0允许 1禁止）',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '状态（0正常 1暂停）',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '备注信息',
   PRIMARY KEY (`job_id`, `job_name`, `job_group`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务调度表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务调度表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_job
@@ -901,16 +905,16 @@ INSERT INTO `sys_job` VALUES (3, '系统默认（多参）', 'DEFAULT', 'ryTask.
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_job_log`;
 CREATE TABLE `sys_job_log`  (
-  `job_log_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '任务日志ID',
+  `job_log_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务日志ID',
   `job_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '任务名称',
   `job_group` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '任务组名',
   `invoke_target` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '调用目标字符串',
   `job_message` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '日志信息',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '执行状态（0正常 1失败）',
   `exception_info` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '异常信息',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`job_log_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_job_log
@@ -921,7 +925,7 @@ CREATE TABLE `sys_job_log`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_logininfor`;
 CREATE TABLE `sys_logininfor`  (
-  `info_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '访问ID',
+  `info_id` bigint NOT NULL AUTO_INCREMENT COMMENT '访问ID',
   `user_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '用户账号',
   `ipaddr` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '登录IP地址',
   `login_location` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '登录地点',
@@ -929,35 +933,419 @@ CREATE TABLE `sys_logininfor`  (
   `os` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '操作系统',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '登录状态（0成功 1失败）',
   `msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '提示消息',
-  `login_time` datetime(0) NULL DEFAULT NULL COMMENT '访问时间',
+  `login_time` datetime NULL DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 374 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 378 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
 
+-- ----------------------------
+-- Records of sys_logininfor
+-- ----------------------------
+INSERT INTO `sys_logininfor` VALUES (1, 'admin', '113.132.11.170', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-19 15:41:20');
+INSERT INTO `sys_logininfor` VALUES (2, 'admin', '113.132.11.170', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-19 15:49:33');
+INSERT INTO `sys_logininfor` VALUES (3, 'admin', '23.105.220.60', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-19 16:50:13');
+INSERT INTO `sys_logininfor` VALUES (4, 'admin', '113.132.11.170', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-19 17:41:27');
+INSERT INTO `sys_logininfor` VALUES (5, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-19 17:59:30');
+INSERT INTO `sys_logininfor` VALUES (6, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-19 18:50:50');
+INSERT INTO `sys_logininfor` VALUES (7, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-20 09:28:24');
+INSERT INTO `sys_logininfor` VALUES (8, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-20 09:31:18');
+INSERT INTO `sys_logininfor` VALUES (9, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-20 10:21:07');
+INSERT INTO `sys_logininfor` VALUES (10, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-20 10:37:43');
+INSERT INTO `sys_logininfor` VALUES (11, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-20 11:09:05');
+INSERT INTO `sys_logininfor` VALUES (12, 'admin', '202.100.50.29', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-20 11:59:52');
+INSERT INTO `sys_logininfor` VALUES (13, 'admin', '202.100.50.29', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-20 12:13:10');
+INSERT INTO `sys_logininfor` VALUES (14, 'admin', '202.100.50.29', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-20 13:06:33');
+INSERT INTO `sys_logininfor` VALUES (15, 'admin', '202.100.50.29', 'XX XX', 'Chrome 8', 'Windows 10', '1', '用户不存在/密码错误', '2020-08-20 14:20:41');
+INSERT INTO `sys_logininfor` VALUES (16, 'admin', '202.100.50.29', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-20 14:20:44');
+INSERT INTO `sys_logininfor` VALUES (17, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-20 14:51:42');
+INSERT INTO `sys_logininfor` VALUES (18, 'admin', '219.144.137.55', 'XX XX', 'Chrome Mobile', 'Mac OS X (iPhone)', '0', '登录成功', '2020-08-21 00:24:12');
+INSERT INTO `sys_logininfor` VALUES (19, 'admin', '23.105.220.60', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-21 09:24:13');
+INSERT INTO `sys_logininfor` VALUES (20, 'admin', '115.171.85.200', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-21 11:49:03');
+INSERT INTO `sys_logininfor` VALUES (21, 'admin', '23.105.220.60', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-21 12:00:59');
+INSERT INTO `sys_logininfor` VALUES (22, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-21 12:53:11');
+INSERT INTO `sys_logininfor` VALUES (23, 'admin', '23.105.220.60', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-21 13:21:21');
+INSERT INTO `sys_logininfor` VALUES (24, 'admin', '202.100.50.29', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-21 15:21:33');
+INSERT INTO `sys_logininfor` VALUES (25, 'admin', '202.100.50.29', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-21 16:41:50');
+INSERT INTO `sys_logininfor` VALUES (26, 'admin', '202.100.50.29', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-21 17:20:18');
+INSERT INTO `sys_logininfor` VALUES (27, 'admin', '117.36.117.89', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-23 09:01:04');
+INSERT INTO `sys_logininfor` VALUES (28, 'admin', '113.132.8.90', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-23 10:42:17');
+INSERT INTO `sys_logininfor` VALUES (29, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-23 11:25:02');
+INSERT INTO `sys_logininfor` VALUES (30, 'admin', '113.132.8.90', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-23 11:43:58');
+INSERT INTO `sys_logininfor` VALUES (31, 'admin', '113.132.8.90', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-23 12:35:31');
+INSERT INTO `sys_logininfor` VALUES (32, 'admin', '113.132.8.90', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-24 09:54:02');
+INSERT INTO `sys_logininfor` VALUES (33, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-24 10:37:58');
+INSERT INTO `sys_logininfor` VALUES (34, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-24 11:23:30');
+INSERT INTO `sys_logininfor` VALUES (35, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-24 13:16:40');
+INSERT INTO `sys_logininfor` VALUES (36, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-24 14:16:22');
+INSERT INTO `sys_logininfor` VALUES (37, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-24 14:26:40');
+INSERT INTO `sys_logininfor` VALUES (38, 'admin', '113.132.8.90', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-24 14:53:27');
+INSERT INTO `sys_logininfor` VALUES (39, 'admin', '113.132.8.90', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-24 15:44:29');
+INSERT INTO `sys_logininfor` VALUES (40, 'admin', '125.76.213.58', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-25 17:08:56');
+INSERT INTO `sys_logininfor` VALUES (41, 'admin', '219.144.136.79', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 09:40:24');
+INSERT INTO `sys_logininfor` VALUES (42, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 12:59:46');
+INSERT INTO `sys_logininfor` VALUES (43, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:00:38');
+INSERT INTO `sys_logininfor` VALUES (44, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:01:47');
+INSERT INTO `sys_logininfor` VALUES (45, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:02:42');
+INSERT INTO `sys_logininfor` VALUES (46, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:02:49');
+INSERT INTO `sys_logininfor` VALUES (47, 'admin', '219.144.136.79', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:05:08');
+INSERT INTO `sys_logininfor` VALUES (48, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:06:14');
+INSERT INTO `sys_logininfor` VALUES (49, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:06:58');
+INSERT INTO `sys_logininfor` VALUES (50, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:07:01');
+INSERT INTO `sys_logininfor` VALUES (51, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:07:03');
+INSERT INTO `sys_logininfor` VALUES (52, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:07:51');
+INSERT INTO `sys_logininfor` VALUES (53, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:13:18');
+INSERT INTO `sys_logininfor` VALUES (54, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:14:27');
+INSERT INTO `sys_logininfor` VALUES (55, NULL, '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '1', '用户不存在/密码错误', '2020-08-26 13:21:57');
+INSERT INTO `sys_logininfor` VALUES (56, NULL, '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '1', '用户不存在/密码错误', '2020-08-26 13:22:10');
+INSERT INTO `sys_logininfor` VALUES (57, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:22:55');
+INSERT INTO `sys_logininfor` VALUES (58, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:23:37');
+INSERT INTO `sys_logininfor` VALUES (59, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:24:32');
+INSERT INTO `sys_logininfor` VALUES (60, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:25:10');
+INSERT INTO `sys_logininfor` VALUES (61, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:25:13');
+INSERT INTO `sys_logininfor` VALUES (62, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:25:51');
+INSERT INTO `sys_logininfor` VALUES (63, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:26:11');
+INSERT INTO `sys_logininfor` VALUES (64, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:26:59');
+INSERT INTO `sys_logininfor` VALUES (65, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:29:27');
+INSERT INTO `sys_logininfor` VALUES (66, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 13:30:12');
+INSERT INTO `sys_logininfor` VALUES (67, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 14:12:49');
+INSERT INTO `sys_logininfor` VALUES (68, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 14:12:56');
+INSERT INTO `sys_logininfor` VALUES (69, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 14:14:52');
+INSERT INTO `sys_logininfor` VALUES (70, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 14:17:21');
+INSERT INTO `sys_logininfor` VALUES (71, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 14:42:49');
+INSERT INTO `sys_logininfor` VALUES (72, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 14:48:14');
+INSERT INTO `sys_logininfor` VALUES (73, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 14:50:21');
+INSERT INTO `sys_logininfor` VALUES (74, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 14:54:00');
+INSERT INTO `sys_logininfor` VALUES (75, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 15:04:37');
+INSERT INTO `sys_logininfor` VALUES (76, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 15:05:26');
+INSERT INTO `sys_logininfor` VALUES (77, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 15:06:42');
+INSERT INTO `sys_logininfor` VALUES (78, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 15:08:23');
+INSERT INTO `sys_logininfor` VALUES (79, 'admin', '219.144.136.79', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 15:30:09');
+INSERT INTO `sys_logininfor` VALUES (80, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 16:15:32');
+INSERT INTO `sys_logininfor` VALUES (81, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-08-26 16:23:28');
+INSERT INTO `sys_logininfor` VALUES (82, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 16:31:09');
+INSERT INTO `sys_logininfor` VALUES (83, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 16:31:29');
+INSERT INTO `sys_logininfor` VALUES (84, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 16:32:07');
+INSERT INTO `sys_logininfor` VALUES (85, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 16:33:33');
+INSERT INTO `sys_logininfor` VALUES (86, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 16:35:24');
+INSERT INTO `sys_logininfor` VALUES (87, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 16:35:36');
+INSERT INTO `sys_logininfor` VALUES (88, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 16:39:29');
+INSERT INTO `sys_logininfor` VALUES (89, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-08-26 16:41:24');
+INSERT INTO `sys_logininfor` VALUES (90, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 16:53:17');
+INSERT INTO `sys_logininfor` VALUES (91, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 16:56:11');
+INSERT INTO `sys_logininfor` VALUES (92, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 16:58:09');
+INSERT INTO `sys_logininfor` VALUES (93, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 17:00:02');
+INSERT INTO `sys_logininfor` VALUES (94, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 17:02:36');
+INSERT INTO `sys_logininfor` VALUES (95, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 17:03:40');
+INSERT INTO `sys_logininfor` VALUES (96, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 17:09:03');
+INSERT INTO `sys_logininfor` VALUES (97, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 17:09:45');
+INSERT INTO `sys_logininfor` VALUES (98, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 17:11:26');
+INSERT INTO `sys_logininfor` VALUES (99, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 17:12:02');
+INSERT INTO `sys_logininfor` VALUES (100, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 17:13:09');
+INSERT INTO `sys_logininfor` VALUES (101, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 17:15:01');
+INSERT INTO `sys_logininfor` VALUES (102, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 17:21:59');
+INSERT INTO `sys_logininfor` VALUES (103, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 17:23:02');
+INSERT INTO `sys_logininfor` VALUES (104, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 18:22:11');
+INSERT INTO `sys_logininfor` VALUES (105, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 18:24:38');
+INSERT INTO `sys_logininfor` VALUES (106, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 18:26:42');
+INSERT INTO `sys_logininfor` VALUES (107, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-26 18:53:27');
+INSERT INTO `sys_logininfor` VALUES (108, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-27 12:24:54');
+INSERT INTO `sys_logininfor` VALUES (109, 'admin', '219.144.136.79', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-27 12:28:25');
+INSERT INTO `sys_logininfor` VALUES (110, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-27 14:43:12');
+INSERT INTO `sys_logininfor` VALUES (111, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-27 15:41:40');
+INSERT INTO `sys_logininfor` VALUES (112, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-27 16:34:09');
+INSERT INTO `sys_logininfor` VALUES (113, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-27 17:10:16');
+INSERT INTO `sys_logininfor` VALUES (114, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-27 19:01:45');
+INSERT INTO `sys_logininfor` VALUES (115, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-28 08:49:18');
+INSERT INTO `sys_logininfor` VALUES (116, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-28 09:30:26');
+INSERT INTO `sys_logininfor` VALUES (117, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-28 12:07:22');
+INSERT INTO `sys_logininfor` VALUES (118, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-28 14:23:29');
+INSERT INTO `sys_logininfor` VALUES (119, 'admin', '202.100.50.173', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-28 15:38:59');
+INSERT INTO `sys_logininfor` VALUES (120, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-28 16:03:49');
+INSERT INTO `sys_logininfor` VALUES (121, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-28 17:46:37');
+INSERT INTO `sys_logininfor` VALUES (122, 'admin', '125.76.213.40', 'XX XX', 'Chrome Mobile', 'Mac OS X (iPhone)', '0', '登录成功', '2020-08-28 21:39:50');
+INSERT INTO `sys_logininfor` VALUES (123, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-29 10:16:54');
+INSERT INTO `sys_logininfor` VALUES (124, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-29 10:19:09');
+INSERT INTO `sys_logininfor` VALUES (125, 'admin', '113.132.8.241', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-29 11:05:53');
+INSERT INTO `sys_logininfor` VALUES (126, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-29 12:09:28');
+INSERT INTO `sys_logininfor` VALUES (127, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-29 12:24:36');
+INSERT INTO `sys_logininfor` VALUES (128, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-29 12:43:55');
+INSERT INTO `sys_logininfor` VALUES (129, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-29 14:40:28');
+INSERT INTO `sys_logininfor` VALUES (130, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-29 16:33:52');
+INSERT INTO `sys_logininfor` VALUES (131, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-29 16:40:24');
+INSERT INTO `sys_logininfor` VALUES (132, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-31 08:52:15');
+INSERT INTO `sys_logininfor` VALUES (133, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-31 09:27:13');
+INSERT INTO `sys_logininfor` VALUES (134, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-31 10:20:53');
+INSERT INTO `sys_logininfor` VALUES (135, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-31 14:18:57');
+INSERT INTO `sys_logininfor` VALUES (136, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-31 15:16:56');
+INSERT INTO `sys_logininfor` VALUES (137, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-31 15:39:31');
+INSERT INTO `sys_logininfor` VALUES (138, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-31 16:10:58');
+INSERT INTO `sys_logininfor` VALUES (139, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-31 17:31:00');
+INSERT INTO `sys_logininfor` VALUES (140, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-31 17:47:18');
+INSERT INTO `sys_logininfor` VALUES (141, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-08-31 17:47:31');
+INSERT INTO `sys_logininfor` VALUES (142, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-31 17:48:00');
+INSERT INTO `sys_logininfor` VALUES (143, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-31 17:58:35');
+INSERT INTO `sys_logininfor` VALUES (144, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-08-31 17:58:44');
+INSERT INTO `sys_logininfor` VALUES (145, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-08-31 18:04:32');
+INSERT INTO `sys_logininfor` VALUES (146, 'admin', '185.152.67.14', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-01 08:30:38');
+INSERT INTO `sys_logininfor` VALUES (147, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-01 09:04:53');
+INSERT INTO `sys_logininfor` VALUES (148, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-01 09:13:35');
+INSERT INTO `sys_logininfor` VALUES (149, 'admin', '185.152.67.14', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-01 09:29:39');
+INSERT INTO `sys_logininfor` VALUES (150, 'admin', '36.110.172.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-01 09:38:03');
+INSERT INTO `sys_logininfor` VALUES (151, 'admin', '185.152.67.14', 'XX XX', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2020-09-01 09:38:28');
+INSERT INTO `sys_logininfor` VALUES (152, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-01 09:39:40');
+INSERT INTO `sys_logininfor` VALUES (153, 'admin', '36.110.172.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-01 09:40:19');
+INSERT INTO `sys_logininfor` VALUES (154, 'admin', '185.152.67.14', 'XX XX', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2020-09-01 09:40:52');
+INSERT INTO `sys_logininfor` VALUES (155, 'admin', '185.152.67.14', 'XX XX', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2020-09-01 09:41:28');
+INSERT INTO `sys_logininfor` VALUES (156, 'admin', '185.152.67.14', 'XX XX', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2020-09-01 09:43:07');
+INSERT INTO `sys_logininfor` VALUES (157, 'admin', '185.152.67.14', 'XX XX', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2020-09-01 09:43:47');
+INSERT INTO `sys_logininfor` VALUES (158, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-01 09:45:19');
+INSERT INTO `sys_logininfor` VALUES (159, 'admin', '185.152.67.14', 'XX XX', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2020-09-01 09:47:08');
+INSERT INTO `sys_logininfor` VALUES (160, 'admin', '185.152.67.14', 'XX XX', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2020-09-01 09:47:52');
+INSERT INTO `sys_logininfor` VALUES (161, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-01 10:55:10');
+INSERT INTO `sys_logininfor` VALUES (162, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-01 11:11:04');
+INSERT INTO `sys_logininfor` VALUES (163, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-01 11:39:04');
+INSERT INTO `sys_logininfor` VALUES (164, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-01 11:57:19');
+INSERT INTO `sys_logininfor` VALUES (165, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-01 13:47:42');
+INSERT INTO `sys_logininfor` VALUES (166, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-01 13:57:26');
+INSERT INTO `sys_logininfor` VALUES (167, 'admin', '117.36.119.62', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-01 14:51:25');
+INSERT INTO `sys_logininfor` VALUES (168, 'admin', '125.76.212.47', 'XX XX', 'Chrome Mobile', 'Mac OS X (iPhone)', '0', '登录成功', '2020-09-01 19:24:31');
+INSERT INTO `sys_logininfor` VALUES (169, 'admin', '125.76.212.47', 'XX XX', 'Chrome Mobile', 'Mac OS X (iPhone)', '0', '登录成功', '2020-09-01 22:13:42');
+INSERT INTO `sys_logininfor` VALUES (170, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 08:11:55');
+INSERT INTO `sys_logininfor` VALUES (171, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 09:43:01');
+INSERT INTO `sys_logininfor` VALUES (172, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 09:58:01');
+INSERT INTO `sys_logininfor` VALUES (173, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 10:30:59');
+INSERT INTO `sys_logininfor` VALUES (174, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 10:31:27');
+INSERT INTO `sys_logininfor` VALUES (175, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 10:57:48');
+INSERT INTO `sys_logininfor` VALUES (176, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 11:00:20');
+INSERT INTO `sys_logininfor` VALUES (177, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 11:23:47');
+INSERT INTO `sys_logininfor` VALUES (178, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 11:34:42');
+INSERT INTO `sys_logininfor` VALUES (179, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 11:40:19');
+INSERT INTO `sys_logininfor` VALUES (180, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 11:44:15');
+INSERT INTO `sys_logininfor` VALUES (181, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 11:46:34');
+INSERT INTO `sys_logininfor` VALUES (182, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 11:50:04');
+INSERT INTO `sys_logininfor` VALUES (183, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 11:52:21');
+INSERT INTO `sys_logininfor` VALUES (184, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 11:55:12');
+INSERT INTO `sys_logininfor` VALUES (185, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 11:55:36');
+INSERT INTO `sys_logininfor` VALUES (186, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:05:11');
+INSERT INTO `sys_logininfor` VALUES (187, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:05:15');
+INSERT INTO `sys_logininfor` VALUES (188, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:06:59');
+INSERT INTO `sys_logininfor` VALUES (189, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:07:02');
+INSERT INTO `sys_logininfor` VALUES (190, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:08:20');
+INSERT INTO `sys_logininfor` VALUES (191, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:08:24');
+INSERT INTO `sys_logininfor` VALUES (192, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:08:54');
+INSERT INTO `sys_logininfor` VALUES (193, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:08:57');
+INSERT INTO `sys_logininfor` VALUES (194, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:10:36');
+INSERT INTO `sys_logininfor` VALUES (195, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:10:39');
+INSERT INTO `sys_logininfor` VALUES (196, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:11:01');
+INSERT INTO `sys_logininfor` VALUES (197, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:12:48');
+INSERT INTO `sys_logininfor` VALUES (198, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:14:13');
+INSERT INTO `sys_logininfor` VALUES (199, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:14:20');
+INSERT INTO `sys_logininfor` VALUES (200, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:14:28');
+INSERT INTO `sys_logininfor` VALUES (201, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:14:31');
+INSERT INTO `sys_logininfor` VALUES (202, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:14:38');
+INSERT INTO `sys_logininfor` VALUES (203, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:14:42');
+INSERT INTO `sys_logininfor` VALUES (204, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:14:44');
+INSERT INTO `sys_logininfor` VALUES (205, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:14:50');
+INSERT INTO `sys_logininfor` VALUES (206, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:14:55');
+INSERT INTO `sys_logininfor` VALUES (207, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:15:00');
+INSERT INTO `sys_logininfor` VALUES (208, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:15:12');
+INSERT INTO `sys_logininfor` VALUES (209, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:15:15');
+INSERT INTO `sys_logininfor` VALUES (210, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:16:36');
+INSERT INTO `sys_logininfor` VALUES (211, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:16:42');
+INSERT INTO `sys_logininfor` VALUES (212, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:16:49');
+INSERT INTO `sys_logininfor` VALUES (213, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:16:54');
+INSERT INTO `sys_logininfor` VALUES (214, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:16:57');
+INSERT INTO `sys_logininfor` VALUES (215, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:17:02');
+INSERT INTO `sys_logininfor` VALUES (216, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:17:04');
+INSERT INTO `sys_logininfor` VALUES (217, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:17:09');
+INSERT INTO `sys_logininfor` VALUES (218, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:17:11');
+INSERT INTO `sys_logininfor` VALUES (219, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:17:14');
+INSERT INTO `sys_logininfor` VALUES (220, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:17:16');
+INSERT INTO `sys_logininfor` VALUES (221, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 12:17:21');
+INSERT INTO `sys_logininfor` VALUES (222, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:17:23');
+INSERT INTO `sys_logininfor` VALUES (223, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 12:59:20');
+INSERT INTO `sys_logininfor` VALUES (224, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 13:35:28');
+INSERT INTO `sys_logininfor` VALUES (225, 'admin', '185.152.67.14', 'XX XX', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2020-09-02 15:25:30');
+INSERT INTO `sys_logininfor` VALUES (226, 'admin', '119.248.10.146', 'XX XX', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2020-09-02 15:26:07');
+INSERT INTO `sys_logininfor` VALUES (227, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 15:50:27');
+INSERT INTO `sys_logininfor` VALUES (228, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 15:57:56');
+INSERT INTO `sys_logininfor` VALUES (229, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 16:55:38');
+INSERT INTO `sys_logininfor` VALUES (230, 'admin', '119.248.10.146', 'XX XX', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2020-09-02 16:58:23');
+INSERT INTO `sys_logininfor` VALUES (231, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-02 17:07:51');
+INSERT INTO `sys_logininfor` VALUES (232, 'admin', '117.36.117.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 17:08:07');
+INSERT INTO `sys_logininfor` VALUES (233, 'admin', '23.105.220.60', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-02 18:40:27');
+INSERT INTO `sys_logininfor` VALUES (234, 'admin', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-03 08:34:35');
+INSERT INTO `sys_logininfor` VALUES (235, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-03 08:41:51');
+INSERT INTO `sys_logininfor` VALUES (236, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-03 09:14:25');
+INSERT INTO `sys_logininfor` VALUES (237, 'admin', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-03 09:19:51');
+INSERT INTO `sys_logininfor` VALUES (238, 'admin', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-03 09:57:51');
+INSERT INTO `sys_logininfor` VALUES (239, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-03 10:12:22');
+INSERT INTO `sys_logininfor` VALUES (240, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-03 12:47:34');
+INSERT INTO `sys_logininfor` VALUES (241, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-03 15:33:36');
+INSERT INTO `sys_logininfor` VALUES (242, 'admin', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-03 16:18:41');
+INSERT INTO `sys_logininfor` VALUES (243, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-03 17:48:04');
+INSERT INTO `sys_logininfor` VALUES (244, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-03 18:24:27');
+INSERT INTO `sys_logininfor` VALUES (245, 'zhangfeng', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-03 18:24:46');
+INSERT INTO `sys_logininfor` VALUES (246, 'zhangfeng', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-03 18:34:15');
+INSERT INTO `sys_logininfor` VALUES (247, 'admin', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-03 18:37:45');
+INSERT INTO `sys_logininfor` VALUES (248, 'admin', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-03 18:42:12');
+INSERT INTO `sys_logininfor` VALUES (249, 'zhangfeng', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-03 18:42:19');
+INSERT INTO `sys_logininfor` VALUES (250, 'zhangfeng', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-03 18:43:19');
+INSERT INTO `sys_logininfor` VALUES (251, 'admin', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-03 18:43:29');
+INSERT INTO `sys_logininfor` VALUES (252, 'admin', '113.132.8.39', 'XX XX', 'Chrome Mobile', 'Mac OS X (iPhone)', '0', '登录成功', '2020-09-04 07:14:23');
+INSERT INTO `sys_logininfor` VALUES (253, 'admin', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '1', '用户不存在/密码错误', '2020-09-04 08:06:12');
+INSERT INTO `sys_logininfor` VALUES (254, 'admin', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 08:06:19');
+INSERT INTO `sys_logininfor` VALUES (255, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 08:21:29');
+INSERT INTO `sys_logininfor` VALUES (256, 'admin', '36.110.172.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 08:37:32');
+INSERT INTO `sys_logininfor` VALUES (257, 'admin', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 08:37:54');
+INSERT INTO `sys_logininfor` VALUES (258, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 09:01:49');
+INSERT INTO `sys_logininfor` VALUES (259, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 09:19:21');
+INSERT INTO `sys_logininfor` VALUES (260, 'admin', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 10:34:09');
+INSERT INTO `sys_logininfor` VALUES (261, 'zhangfeng', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 10:42:32');
+INSERT INTO `sys_logininfor` VALUES (262, 'zhangfeng', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-04 10:47:33');
+INSERT INTO `sys_logininfor` VALUES (263, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 10:47:42');
+INSERT INTO `sys_logininfor` VALUES (264, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-04 11:17:47');
+INSERT INTO `sys_logininfor` VALUES (265, 'test', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 11:17:56');
+INSERT INTO `sys_logininfor` VALUES (266, 'test', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-04 11:25:50');
+INSERT INTO `sys_logininfor` VALUES (267, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 11:25:59');
+INSERT INTO `sys_logininfor` VALUES (268, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-04 11:27:05');
+INSERT INTO `sys_logininfor` VALUES (269, 'test', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 11:27:13');
+INSERT INTO `sys_logininfor` VALUES (270, 'admin', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 11:35:59');
+INSERT INTO `sys_logininfor` VALUES (271, 'admin', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-04 11:39:30');
+INSERT INTO `sys_logininfor` VALUES (272, 'test', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 11:39:37');
+INSERT INTO `sys_logininfor` VALUES (273, 'test', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-04 11:45:22');
+INSERT INTO `sys_logininfor` VALUES (274, 'test', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 11:45:30');
+INSERT INTO `sys_logininfor` VALUES (275, 'zhangfeng', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 11:50:51');
+INSERT INTO `sys_logininfor` VALUES (276, 'test', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 12:11:37');
+INSERT INTO `sys_logininfor` VALUES (277, 'test', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-04 12:15:36');
+INSERT INTO `sys_logininfor` VALUES (278, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 12:15:49');
+INSERT INTO `sys_logininfor` VALUES (279, 'test', '113.132.11.251', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 12:27:35');
+INSERT INTO `sys_logininfor` VALUES (280, 'admin', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 12:49:23');
+INSERT INTO `sys_logininfor` VALUES (281, 'admin', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 13:30:09');
+INSERT INTO `sys_logininfor` VALUES (282, 'admin', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-04 14:01:06');
+INSERT INTO `sys_logininfor` VALUES (283, 'zhangfeng', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 14:01:13');
+INSERT INTO `sys_logininfor` VALUES (284, 'zhangfeng', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-04 14:01:50');
+INSERT INTO `sys_logininfor` VALUES (285, 'admin', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 14:01:56');
+INSERT INTO `sys_logininfor` VALUES (286, 'admin', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-04 14:03:04');
+INSERT INTO `sys_logininfor` VALUES (287, 'zhangfeng', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 14:03:11');
+INSERT INTO `sys_logininfor` VALUES (288, 'zhangfeng', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-04 14:04:05');
+INSERT INTO `sys_logininfor` VALUES (289, 'admin', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 14:04:11');
+INSERT INTO `sys_logininfor` VALUES (290, 'admin', '185.152.67.14', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 14:05:13');
+INSERT INTO `sys_logininfor` VALUES (291, 'admin', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-04 14:08:00');
+INSERT INTO `sys_logininfor` VALUES (292, 'test', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 14:08:08');
+INSERT INTO `sys_logininfor` VALUES (293, 'test', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-04 14:14:59');
+INSERT INTO `sys_logininfor` VALUES (294, 'admin', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 14:15:06');
+INSERT INTO `sys_logininfor` VALUES (295, 'admin', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 14:58:32');
+INSERT INTO `sys_logininfor` VALUES (296, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 15:16:44');
+INSERT INTO `sys_logininfor` VALUES (297, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 15:17:01');
+INSERT INTO `sys_logininfor` VALUES (298, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 15:33:18');
+INSERT INTO `sys_logininfor` VALUES (299, 'admin', '36.110.172.3', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 15:58:14');
+INSERT INTO `sys_logininfor` VALUES (300, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 17:22:00');
+INSERT INTO `sys_logininfor` VALUES (301, 'admin', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 17:37:34');
+INSERT INTO `sys_logininfor` VALUES (302, 'admin', '185.152.67.14', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 17:54:20');
+INSERT INTO `sys_logininfor` VALUES (303, 'admin', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 17:55:16');
+INSERT INTO `sys_logininfor` VALUES (304, 'admin', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-04 18:54:01');
+INSERT INTO `sys_logininfor` VALUES (305, 'zhangfeng', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 18:54:07');
+INSERT INTO `sys_logininfor` VALUES (306, 'zhangfeng', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-04 18:58:32');
+INSERT INTO `sys_logininfor` VALUES (307, 'admin', '125.76.212.94', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-04 18:58:42');
+INSERT INTO `sys_logininfor` VALUES (308, 'admin', '183.197.42.88', 'XX XX', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2020-09-05 09:17:17');
+INSERT INTO `sys_logininfor` VALUES (309, 'admin', '185.152.67.14', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-05 09:20:55');
+INSERT INTO `sys_logininfor` VALUES (310, 'admin', '202.100.51.171', 'XX XX', 'Firefox 8', 'Windows 10', '0', '登录成功', '2020-09-05 09:23:25');
+INSERT INTO `sys_logininfor` VALUES (311, 'admin', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-05 10:02:37');
+INSERT INTO `sys_logininfor` VALUES (312, 'admin', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-05 10:39:08');
+INSERT INTO `sys_logininfor` VALUES (313, 'admin', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-05 11:28:35');
+INSERT INTO `sys_logininfor` VALUES (314, 'zhengfeng', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '1', '用户不存在/密码错误', '2020-09-05 11:28:44');
+INSERT INTO `sys_logininfor` VALUES (315, 'zhangfeng', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-05 11:28:56');
+INSERT INTO `sys_logininfor` VALUES (316, 'zhangfeng', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-05 11:29:14');
+INSERT INTO `sys_logininfor` VALUES (317, 'admin', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-05 11:29:20');
+INSERT INTO `sys_logininfor` VALUES (318, 'admin', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-05 11:29:42');
+INSERT INTO `sys_logininfor` VALUES (319, 'zhangfeng', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-05 11:29:48');
+INSERT INTO `sys_logininfor` VALUES (320, 'zhangfeng', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-05 11:31:37');
+INSERT INTO `sys_logininfor` VALUES (321, 'admin', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-05 11:31:46');
+INSERT INTO `sys_logininfor` VALUES (322, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-05 11:40:04');
+INSERT INTO `sys_logininfor` VALUES (323, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-05 11:45:10');
+INSERT INTO `sys_logininfor` VALUES (324, 'zhangfeng', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-05 11:45:18');
+INSERT INTO `sys_logininfor` VALUES (325, 'zhangfeng', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-05 11:46:25');
+INSERT INTO `sys_logininfor` VALUES (326, 'admin', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-05 12:38:10');
+INSERT INTO `sys_logininfor` VALUES (327, 'admin', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-05 13:18:00');
+INSERT INTO `sys_logininfor` VALUES (328, 'admin', '202.100.51.171', 'XX XX', 'Firefox 8', 'Windows 10', '0', '登录成功', '2020-09-05 14:07:00');
+INSERT INTO `sys_logininfor` VALUES (329, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-05 14:19:27');
+INSERT INTO `sys_logininfor` VALUES (330, 'admin', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-05 14:45:01');
+INSERT INTO `sys_logininfor` VALUES (331, 'admin', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-05 15:30:50');
+INSERT INTO `sys_logininfor` VALUES (332, 'admin', '202.100.51.171', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-05 16:10:51');
+INSERT INTO `sys_logininfor` VALUES (333, 'admin', '36.46.3.252', 'XX XX', 'Chrome Mobile', 'Mac OS X (iPhone)', '0', '登录成功', '2020-09-06 17:11:15');
+INSERT INTO `sys_logininfor` VALUES (334, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 09:12:43');
+INSERT INTO `sys_logininfor` VALUES (335, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 09:45:26');
+INSERT INTO `sys_logininfor` VALUES (336, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 12:13:27');
+INSERT INTO `sys_logininfor` VALUES (337, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 13:48:26');
+INSERT INTO `sys_logininfor` VALUES (338, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 14:04:44');
+INSERT INTO `sys_logininfor` VALUES (339, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 14:06:50');
+INSERT INTO `sys_logininfor` VALUES (340, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 14:57:54');
+INSERT INTO `sys_logininfor` VALUES (341, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 16:23:46');
+INSERT INTO `sys_logininfor` VALUES (342, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 16:31:04');
+INSERT INTO `sys_logininfor` VALUES (343, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-07 16:31:55');
+INSERT INTO `sys_logininfor` VALUES (344, 'zhangfeng', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 16:32:03');
+INSERT INTO `sys_logininfor` VALUES (345, 'zhangfeng', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 16:40:40');
+INSERT INTO `sys_logininfor` VALUES (346, 'zhangfeng', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-07 16:42:07');
+INSERT INTO `sys_logininfor` VALUES (347, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 16:42:15');
+INSERT INTO `sys_logininfor` VALUES (348, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-07 16:56:04');
+INSERT INTO `sys_logininfor` VALUES (349, 'zhangfeng', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 16:56:10');
+INSERT INTO `sys_logininfor` VALUES (350, 'zhangfeng', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-07 17:00:28');
+INSERT INTO `sys_logininfor` VALUES (351, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 17:00:34');
+INSERT INTO `sys_logininfor` VALUES (352, 'admin', '117.36.116.82', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 17:36:13');
+INSERT INTO `sys_logininfor` VALUES (353, 'admin', '117.36.116.82', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 17:37:22');
+INSERT INTO `sys_logininfor` VALUES (354, 'admin', '117.36.116.82', 'XX XX', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-07 17:44:44');
+INSERT INTO `sys_logininfor` VALUES (355, 'zhangfeng', '117.36.116.82', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 17:44:50');
+INSERT INTO `sys_logininfor` VALUES (356, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 18:13:50');
+INSERT INTO `sys_logininfor` VALUES (357, 'admin', '117.36.116.82', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 18:25:33');
+INSERT INTO `sys_logininfor` VALUES (358, 'admin', '117.36.116.82', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 18:33:16');
+INSERT INTO `sys_logininfor` VALUES (359, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 18:39:26');
+INSERT INTO `sys_logininfor` VALUES (360, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-07 19:07:34');
+INSERT INTO `sys_logininfor` VALUES (361, 'admin', '202.100.34.154', 'XX XX', 'Chrome Mobile', 'Mac OS X (iPhone)', '0', '登录成功', '2020-09-07 20:30:22');
+INSERT INTO `sys_logininfor` VALUES (362, 'admin', '202.100.34.154', 'XX XX', 'Chrome Mobile', 'Mac OS X (iPhone)', '0', '退出成功', '2020-09-07 20:31:17');
+INSERT INTO `sys_logininfor` VALUES (363, 'admin', '117.36.116.82', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-08 08:12:11');
+INSERT INTO `sys_logininfor` VALUES (364, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-08 08:27:38');
+INSERT INTO `sys_logininfor` VALUES (365, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2020-09-08 08:27:46');
+INSERT INTO `sys_logininfor` VALUES (366, 'zhangfeng', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-08 08:27:54');
+INSERT INTO `sys_logininfor` VALUES (367, 'admin', '117.36.116.82', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-08 09:04:02');
+INSERT INTO `sys_logininfor` VALUES (368, 'admin', '113.200.69.150', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-08 10:04:01');
+INSERT INTO `sys_logininfor` VALUES (369, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-08 11:24:56');
+INSERT INTO `sys_logininfor` VALUES (370, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-08 11:37:36');
+INSERT INTO `sys_logininfor` VALUES (371, 'admin', '117.36.116.82', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-08 11:56:31');
+INSERT INTO `sys_logininfor` VALUES (372, 'admin', '117.36.116.82', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-08 12:00:19');
+INSERT INTO `sys_logininfor` VALUES (373, 'admin', '113.200.69.150', 'XX XX', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-08 12:38:48');
+INSERT INTO `sys_logininfor` VALUES (374, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-08 13:12:29');
+INSERT INTO `sys_logininfor` VALUES (375, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2020-09-08 13:16:33');
+INSERT INTO `sys_logininfor` VALUES (376, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-04-23 10:46:11');
+INSERT INTO `sys_logininfor` VALUES (377, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-04-23 17:47:41');
+INSERT INTO `sys_logininfor` VALUES (378, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-05-13 17:12:25');
+INSERT INTO `sys_logininfor` VALUES (379, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-05-24 13:08:13');
+INSERT INTO `sys_logininfor` VALUES (380, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '退出成功', '2021-05-24 13:08:41');
+INSERT INTO `sys_logininfor` VALUES (381, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-05-24 13:08:49');
 
 -- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu`  (
-  `menu_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
+  `menu_id` bigint NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
   `menu_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '菜单名称',
-  `parent_id` bigint(0) NULL DEFAULT 0 COMMENT '父菜单ID',
-  `order_num` int(0) NULL DEFAULT 0 COMMENT '显示顺序',
+  `parent_id` bigint NULL DEFAULT 0 COMMENT '父菜单ID',
+  `order_num` int NULL DEFAULT 0 COMMENT '显示顺序',
   `path` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '路由地址',
   `component` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '组件路径',
-  `is_frame` int(0) NULL DEFAULT 1 COMMENT '是否为外链（0是 1否）',
+  `is_frame` int NULL DEFAULT 1 COMMENT '是否为外链（0是 1否）',
   `menu_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
   `visible` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '菜单状态（0显示 1隐藏）',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '菜单状态（0正常 1停用）',
   `perms` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '权限标识',
   `icon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '#' COMMENT '菜单图标',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2047 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '菜单权限表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2046 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '菜单权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -1096,18 +1484,18 @@ INSERT INTO `sys_menu` VALUES (2046, '视图状态管理', 2022, 5, 'view_status
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_notice`;
 CREATE TABLE `sys_notice`  (
-  `notice_id` int(0) NOT NULL AUTO_INCREMENT COMMENT '公告ID',
+  `notice_id` int NOT NULL AUTO_INCREMENT COMMENT '公告ID',
   `notice_title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '公告标题',
   `notice_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '公告类型（1通知 2公告）',
   `notice_content` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '公告内容',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '公告状态（0正常 1关闭）',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`notice_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_notice
@@ -1120,12 +1508,12 @@ INSERT INTO `sys_notice` VALUES (2, '维护通知：2018-07-01 系统凌晨维�
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_oper_log`;
 CREATE TABLE `sys_oper_log`  (
-  `oper_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '日志主键',
+  `oper_id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志主键',
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '模块标题',
-  `business_type` int(0) NULL DEFAULT 0 COMMENT '业务类型（0其它 1新增 2修改 3删除）',
+  `business_type` int NULL DEFAULT 0 COMMENT '业务类型（0其它 1新增 2修改 3删除）',
   `method` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '方法名称',
   `request_method` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '请求方式',
-  `operator_type` int(0) NULL DEFAULT 0 COMMENT '操作类别（0其它 1后台用户 2手机端用户）',
+  `operator_type` int NULL DEFAULT 0 COMMENT '操作类别（0其它 1后台用户 2手机端用户）',
   `oper_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '操作人员',
   `dept_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '部门名称',
   `oper_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '请求URL',
@@ -1133,65 +1521,66 @@ CREATE TABLE `sys_oper_log`  (
   `oper_location` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '操作地点',
   `oper_param` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '请求参数',
   `json_result` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '返回参数',
-  `status` int(0) NULL DEFAULT 0 COMMENT '操作状态（0正常 1异常）',
+  `status` int NULL DEFAULT 0 COMMENT '操作状态（0正常 1异常）',
   `error_msg` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '错误消息',
-  `oper_time` datetime(0) NULL DEFAULT NULL COMMENT '操作时间',
+  `oper_time` datetime NULL DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`oper_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_oper_log
 -- ----------------------------
-INSERT INTO `sys_oper_log` VALUES (1, '操作日志', 9, 'com.oceanus.project.monitor.controller.SysOperlogController.clean()', 'DELETE', 1, 'admin', NULL, '/rest/monitor/operlog/clean', '113.132.11.170', 'XX XX', '{}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 15:24:01');
-INSERT INTO `sys_oper_log` VALUES (2, '登陆日志', 9, 'com.oceanus.project.monitor.controller.SysLogininforController.clean()', 'DELETE', 1, 'admin', NULL, '/rest/monitor/logininfor/clean', '113.132.11.170', 'XX XX', '{}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 15:24:12');
-INSERT INTO `sys_oper_log` VALUES (3, '登陆日志', 9, 'com.oceanus.project.monitor.controller.SysLogininforController.clean()', 'DELETE', 1, 'admin', NULL, '/rest/monitor/logininfor/clean', '113.132.11.170', 'XX XX', '{}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 15:34:56');
-INSERT INTO `sys_oper_log` VALUES (4, '字典类型', 1, 'com.oceanus.project.system.controller.SysDictTypeController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/type', '113.132.11.170', 'XX XX', '{\"params\":{},\"dictType\":\"data_type\",\"createBy\":\"admin\",\"dictName\":\"数据类型\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:41:48');
-INSERT INTO `sys_oper_log` VALUES (5, '字典数据', 1, 'com.oceanus.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"BIGINT\",\"dictSort\":0,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"BIGINT\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:42:07');
-INSERT INTO `sys_oper_log` VALUES (6, '字典数据', 1, 'com.oceanus.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"BOOLEAN\",\"dictSort\":1,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"BOOLEAN\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:42:22');
-INSERT INTO `sys_oper_log` VALUES (7, '字典数据', 1, 'com.oceanus.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"CHAR\",\"dictSort\":3,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"CHAR\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:42:36');
-INSERT INTO `sys_oper_log` VALUES (8, '字典数据', 1, 'com.oceanus.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"DATE\",\"dictSort\":4,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"DATE\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:42:51');
-INSERT INTO `sys_oper_log` VALUES (9, '字典数据', 1, 'com.oceanus.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"DATETIME\",\"dictSort\":5,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"DATETIME\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:43:02');
-INSERT INTO `sys_oper_log` VALUES (10, '字典数据', 1, 'com.oceanus.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"DECIMAL\",\"dictSort\":6,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"DECIMAL\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:43:16');
-INSERT INTO `sys_oper_log` VALUES (11, '字典数据', 1, 'com.oceanus.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"DOUBLE\",\"dictSort\":7,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"DOUBLE\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:43:28');
-INSERT INTO `sys_oper_log` VALUES (12, '字典数据', 1, 'com.oceanus.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"FLOAT\",\"dictSort\":9,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"FLOAT\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:43:39');
-INSERT INTO `sys_oper_log` VALUES (13, '字典数据', 2, 'com.oceanus.project.system.controller.SysDictDataController.edit()', 'PUT', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"FLOAT\",\"dictSort\":8,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"FLOAT\",\"createBy\":\"admin\",\"default\":false,\"isDefault\":\"N\",\"createTime\":1597830219000,\"dictCode\":122,\"updateBy\":\"admin\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:43:49');
-INSERT INTO `sys_oper_log` VALUES (14, '字典数据', 1, 'com.oceanus.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"INT\",\"dictSort\":9,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"INT\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:43:59');
-INSERT INTO `sys_oper_log` VALUES (15, '字典数据', 1, 'com.oceanus.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"LARGEINT\",\"dictSort\":10,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"LARGEINT\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:44:12');
-INSERT INTO `sys_oper_log` VALUES (16, '字典数据', 1, 'com.oceanus.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"SMALLINT\",\"dictSort\":11,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"SMALLINT\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:44:26');
-INSERT INTO `sys_oper_log` VALUES (17, '字典数据', 1, 'com.oceanus.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"TINYINT\",\"dictSort\":12,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"TINYINT\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:44:40');
-INSERT INTO `sys_oper_log` VALUES (18, '字典数据', 1, 'com.oceanus.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"VARCHAR\",\"dictSort\":13,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"VARCHAR\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:44:52');
-INSERT INTO `sys_oper_log` VALUES (19, '菜单管理', 2, 'com.oceanus.project.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/rest/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"database\",\"orderNum\":\"2\",\"menuName\":\"数仓管理\",\"params\":{},\"parentId\":2022,\"path\":\"data-manager\",\"component\":\"data/capacity/index\",\"children\":[],\"createTime\":1597043658000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":2029,\"menuType\":\"C\",\"perms\":\"\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 19:21:25');
-INSERT INTO `sys_oper_log` VALUES (20, '菜单管理', 2, 'com.oceanus.project.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/rest/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"add_partition\",\"orderNum\":\"1\",\"menuName\":\"分区管理\",\"params\":{},\"parentId\":2022,\"path\":\"partition\",\"component\":\"data/partitions/index\",\"children\":[],\"createTime\":1597043519000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":2027,\"menuType\":\"C\",\"perms\":\"\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 19:22:50');
-INSERT INTO `sys_oper_log` VALUES (21, '菜单管理', 1, 'com.oceanus.project.system.controller.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/rest/system/menu', '113.132.8.90', 'XX XX', '{\"visible\":\"0\",\"icon\":\"pf_monitor\",\"orderNum\":\"5\",\"menuName\":\"视图状态管理\",\"params\":{},\"parentId\":2022,\"path\":\"view_status\",\"component\":\"data/view_status/index\",\"createBy\":\"admin\",\"children\":[],\"isFrame\":\"1\",\"menuType\":\"C\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-23 11:10:25');
-INSERT INTO `sys_oper_log` VALUES (22, '菜单管理', 2, 'com.oceanus.project.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/rest/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"view\",\"orderNum\":\"4\",\"menuName\":\"物化视图管理\",\"params\":{},\"parentId\":2022,\"path\":\"mvview\",\"component\":\"data/mvview/index\",\"children\":[],\"createTime\":1597043457000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":2026,\"menuType\":\"C\",\"perms\":\"\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-24 10:38:40');
-INSERT INTO `sys_oper_log` VALUES (23, '用户头像', 2, 'com.oceanus.project.system.controller.SysProfileController.avatar()', 'POST', 1, 'admin', NULL, '/rest/system/user/profile/avatar', '127.0.0.1', '内网IP', '', 'null', 1, 'java.io.FileNotFoundException: C:\\Users\\zhang\\AppData\\Local\\Temp\\tomcat.5498916628455060266.30001\\work\\Tomcat\\localhost\\ROOT\\soft\\dataplateform\\upload\\avatar\\2020\\09\\01\\85f803456f38b22f533ae60c6a7e6e86.jpeg (系统找不到指定的路径。)', '2020-09-01 11:22:44');
-INSERT INTO `sys_oper_log` VALUES (24, '个人信息', 2, 'com.oceanus.project.system.controller.SysProfileController.updatePwd()', 'PUT', 1, 'admin', NULL, '/rest/system/user/profile/updatePwd', '127.0.0.1', '内网IP', 'zhangfeng zhangfeng', '{\"msg\":\"新密码不能与旧密码相同\",\"code\":500}', 0, NULL, '2020-09-01 11:23:08');
-INSERT INTO `sys_oper_log` VALUES (25, '个人信息', 2, 'com.oceanus.project.system.controller.SysProfileController.updatePwd()', 'PUT', 1, 'admin', NULL, '/rest/system/user/profile/updatePwd', '127.0.0.1', '内网IP', 'zhangfeng zhangfeng1', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-09-01 11:28:36');
-INSERT INTO `sys_oper_log` VALUES (26, '个人信息', 2, 'com.oceanus.project.system.controller.SysProfileController.updatePwd()', 'PUT', 1, 'admin', NULL, '/rest/system/user/profile/updatePwd', '127.0.0.1', '内网IP', 'zhangfeng1 zhangfeng', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-09-01 11:28:48');
-INSERT INTO `sys_oper_log` VALUES (27, '个人信息', 2, 'com.oceanus.project.system.controller.SysProfileController.updateProfile()', 'PUT', 1, 'admin', NULL, '/rest/system/user/profile', '117.36.119.62', 'XX XX', '{\"roles\":[{\"flag\":false,\"roleId\":1,\"admin\":true,\"dataScope\":\"1\",\"params\":{},\"roleSort\":\"1\",\"roleKey\":\"admin\",\"roleName\":\"系统管理员\",\"status\":\"0\"}],\"phonenumber\":\"15888888888\",\"admin\":true,\"loginDate\":1598931180000,\"remark\":\"管理员\",\"delFlag\":\"0\",\"password\":\"$2a$10$92ngqc1P014Rc02rM3nld.AYF/l7fbNkY9OtOi0rzvc/ER58.yI5y\",\"loginIp\":\"127.0.0.1\",\"email\":\"zhangjf1@gmail.com\",\"nickName\":\"系统管理员\",\"sex\":\"0\",\"deptId\":103,\"avatar\":\"/profile/avatar/2020/08/13/c5476b6dcd69dbcfd748d4191ef283b7.jpeg\",\"dept\":{\"deptName\":\"研发部门\",\"leader\":\"若依\",\"deptId\":103,\"orderNum\":\"1\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"admin\",\"userId\":1,\"createBy\":\"admin\",\"createTime\":1521171180000,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-09-01 11:43:29');
-INSERT INTO `sys_oper_log` VALUES (28, '用户头像', 2, 'com.oceanus.project.system.controller.SysProfileController.avatar()', 'POST', 1, 'admin', NULL, '/rest/system/user/profile/avatar', '117.36.119.62', 'XX XX', '', '{\"msg\":\"操作成功\",\"imgUrl\":\"/profile/avatar/2020/09/01/6602808ec738a9003a3a0e48d2e09eda.jpeg\",\"code\":200}', 0, NULL, '2020-09-01 11:43:48');
-INSERT INTO `sys_oper_log` VALUES (29, '用户管理', 1, 'com.oceanus.project.system.controller.SysUserController.add()', 'POST', 1, 'admin', NULL, '/rest/system/user', '127.0.0.1', '内网IP', '{\"phonenumber\":\"13677777777\",\"admin\":false,\"remark\":\"没有备注\",\"password\":\"$2a$10$GouWbubZWG03eENtLF4PT.CQ5yYAEm8TesdlWnDf5DlvuGshjySxC\",\"postIds\":[],\"email\":\"41108453@qq.com\",\"nickName\":\"测试员\",\"sex\":\"0\",\"params\":{},\"userName\":\"test\",\"userId\":100,\"createBy\":\"admin\",\"roleIds\":[2],\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-09-04 11:17:40');
-INSERT INTO `sys_oper_log` VALUES (30, '用户管理', 2, 'com.oceanus.project.system.controller.SysUserController.changeStatus()', 'PUT', 1, 'admin', NULL, '/rest/system/user/changeStatus', '125.76.212.94', 'XX XX', '{\"admin\":false,\"updateBy\":\"admin\",\"params\":{},\"userId\":100,\"status\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-09-04 13:00:00');
-INSERT INTO `sys_oper_log` VALUES (31, '用户管理', 2, 'com.oceanus.project.system.controller.SysUserController.changeStatus()', 'PUT', 1, 'admin', NULL, '/rest/system/user/changeStatus', '125.76.212.94', 'XX XX', '{\"admin\":false,\"updateBy\":\"admin\",\"params\":{},\"userId\":100,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-09-04 13:00:03');
-INSERT INTO `sys_oper_log` VALUES (32, '用户管理', 2, 'com.oceanus.project.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', NULL, '/rest/system/user', '185.152.67.14', 'XX XX', '{\"roles\":[{\"flag\":false,\"roleId\":1,\"admin\":true,\"dataScope\":\"1\",\"params\":{},\"roleSort\":\"1\",\"roleKey\":\"admin\",\"roleName\":\"系统管理员\",\"status\":\"0\"}],\"phonenumber\":\"15888888888\",\"admin\":true,\"loginDate\":1598931180000,\"remark\":\"管理员\",\"delFlag\":\"0\",\"password\":\"\",\"postIds\":[1],\"loginIp\":\"127.0.0.1\",\"email\":\"zhangjf1@gmail.com\",\"nickName\":\"系统管理员\",\"sex\":\"0\",\"deptId\":103,\"avatar\":\"/profile/avatar/2020/09/01/6602808ec738a9003a3a0e48d2e09eda.jpeg\",\"dept\":{\"deptName\":\"研发部门\",\"leader\":\"若依\",\"deptId\":103,\"orderNum\":\"1\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"admin\",\"userId\":1,\"createBy\":\"admin\",\"roleIds\":[],\"createTime\":1598931180000,\"status\":\"0\"}', 'null', 1, '不允许操作超级管理员用户', '2020-09-05 09:22:30');
+INSERT INTO `sys_oper_log` VALUES (1, '操作日志', 9, 'com.data.project.monitor.controller.SysOperlogController.clean()', 'DELETE', 1, 'admin', NULL, '/rest/monitor/operlog/clean', '113.132.11.170', 'XX XX', '{}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 15:24:01');
+INSERT INTO `sys_oper_log` VALUES (2, '登陆日志', 9, 'com.data.project.monitor.controller.SysLogininforController.clean()', 'DELETE', 1, 'admin', NULL, '/rest/monitor/logininfor/clean', '113.132.11.170', 'XX XX', '{}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 15:24:12');
+INSERT INTO `sys_oper_log` VALUES (3, '登陆日志', 9, 'com.data.project.monitor.controller.SysLogininforController.clean()', 'DELETE', 1, 'admin', NULL, '/rest/monitor/logininfor/clean', '113.132.11.170', 'XX XX', '{}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 15:34:56');
+INSERT INTO `sys_oper_log` VALUES (4, '字典类型', 1, 'com.data.project.system.controller.SysDictTypeController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/type', '113.132.11.170', 'XX XX', '{\"params\":{},\"dictType\":\"data_type\",\"createBy\":\"admin\",\"dictName\":\"数据类型\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:41:48');
+INSERT INTO `sys_oper_log` VALUES (5, '字典数据', 1, 'com.data.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"BIGINT\",\"dictSort\":0,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"BIGINT\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:42:07');
+INSERT INTO `sys_oper_log` VALUES (6, '字典数据', 1, 'com.data.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"BOOLEAN\",\"dictSort\":1,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"BOOLEAN\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:42:22');
+INSERT INTO `sys_oper_log` VALUES (7, '字典数据', 1, 'com.data.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"CHAR\",\"dictSort\":3,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"CHAR\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:42:36');
+INSERT INTO `sys_oper_log` VALUES (8, '字典数据', 1, 'com.data.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"DATE\",\"dictSort\":4,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"DATE\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:42:51');
+INSERT INTO `sys_oper_log` VALUES (9, '字典数据', 1, 'com.data.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"DATETIME\",\"dictSort\":5,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"DATETIME\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:43:02');
+INSERT INTO `sys_oper_log` VALUES (10, '字典数据', 1, 'com.data.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"DECIMAL\",\"dictSort\":6,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"DECIMAL\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:43:16');
+INSERT INTO `sys_oper_log` VALUES (11, '字典数据', 1, 'com.data.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"DOUBLE\",\"dictSort\":7,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"DOUBLE\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:43:28');
+INSERT INTO `sys_oper_log` VALUES (12, '字典数据', 1, 'com.data.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"FLOAT\",\"dictSort\":9,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"FLOAT\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:43:39');
+INSERT INTO `sys_oper_log` VALUES (13, '字典数据', 2, 'com.data.project.system.controller.SysDictDataController.edit()', 'PUT', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"FLOAT\",\"dictSort\":8,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"FLOAT\",\"createBy\":\"admin\",\"default\":false,\"isDefault\":\"N\",\"createTime\":1597830219000,\"dictCode\":122,\"updateBy\":\"admin\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:43:49');
+INSERT INTO `sys_oper_log` VALUES (14, '字典数据', 1, 'com.data.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"INT\",\"dictSort\":9,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"INT\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:43:59');
+INSERT INTO `sys_oper_log` VALUES (15, '字典数据', 1, 'com.data.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"LARGEINT\",\"dictSort\":10,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"LARGEINT\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:44:12');
+INSERT INTO `sys_oper_log` VALUES (16, '字典数据', 1, 'com.data.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"SMALLINT\",\"dictSort\":11,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"SMALLINT\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:44:26');
+INSERT INTO `sys_oper_log` VALUES (17, '字典数据', 1, 'com.data.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"TINYINT\",\"dictSort\":12,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"TINYINT\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:44:40');
+INSERT INTO `sys_oper_log` VALUES (18, '字典数据', 1, 'com.data.project.system.controller.SysDictDataController.add()', 'POST', 1, 'admin', NULL, '/rest/system/dict/data', '113.132.11.170', 'XX XX', '{\"dictValue\":\"VARCHAR\",\"dictSort\":13,\"params\":{},\"dictType\":\"data_type\",\"dictLabel\":\"VARCHAR\",\"createBy\":\"admin\",\"default\":false,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 17:44:52');
+INSERT INTO `sys_oper_log` VALUES (19, '菜单管理', 2, 'com.data.project.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/rest/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"database\",\"orderNum\":\"2\",\"menuName\":\"数仓管理\",\"params\":{},\"parentId\":2022,\"path\":\"data-manager\",\"component\":\"data/capacity/index\",\"children\":[],\"createTime\":1597043658000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":2029,\"menuType\":\"C\",\"perms\":\"\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 19:21:25');
+INSERT INTO `sys_oper_log` VALUES (20, '菜单管理', 2, 'com.data.project.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/rest/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"add_partition\",\"orderNum\":\"1\",\"menuName\":\"分区管理\",\"params\":{},\"parentId\":2022,\"path\":\"partition\",\"component\":\"data/partitions/index\",\"children\":[],\"createTime\":1597043519000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":2027,\"menuType\":\"C\",\"perms\":\"\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-19 19:22:50');
+INSERT INTO `sys_oper_log` VALUES (21, '菜单管理', 1, 'com.data.project.system.controller.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/rest/system/menu', '113.132.8.90', 'XX XX', '{\"visible\":\"0\",\"icon\":\"pf_monitor\",\"orderNum\":\"5\",\"menuName\":\"视图状态管理\",\"params\":{},\"parentId\":2022,\"path\":\"view_status\",\"component\":\"data/view_status/index\",\"createBy\":\"admin\",\"children\":[],\"isFrame\":\"1\",\"menuType\":\"C\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-23 11:10:25');
+INSERT INTO `sys_oper_log` VALUES (22, '菜单管理', 2, 'com.data.project.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/rest/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"view\",\"orderNum\":\"4\",\"menuName\":\"物化视图管理\",\"params\":{},\"parentId\":2022,\"path\":\"mvview\",\"component\":\"data/mvview/index\",\"children\":[],\"createTime\":1597043457000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":2026,\"menuType\":\"C\",\"perms\":\"\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-08-24 10:38:40');
+INSERT INTO `sys_oper_log` VALUES (23, '用户头像', 2, 'com.data.project.system.controller.SysProfileController.avatar()', 'POST', 1, 'admin', NULL, '/rest/system/user/profile/avatar', '127.0.0.1', '内网IP', '', 'null', 1, 'java.io.FileNotFoundException: C:\\Users\\zhang\\AppData\\Local\\Temp\\tomcat.5498916628455060266.30001\\work\\Tomcat\\localhost\\ROOT\\soft\\dataplateform\\upload\\avatar\\2020\\09\\01\\85f803456f38b22f533ae60c6a7e6e86.jpeg (系统找不到指定的路径。)', '2020-09-01 11:22:44');
+INSERT INTO `sys_oper_log` VALUES (24, '个人信息', 2, 'com.data.project.system.controller.SysProfileController.updatePwd()', 'PUT', 1, 'admin', NULL, '/rest/system/user/profile/updatePwd', '127.0.0.1', '内网IP', 'zhangfeng zhangfeng', '{\"msg\":\"新密码不能与旧密码相同\",\"code\":500}', 0, NULL, '2020-09-01 11:23:08');
+INSERT INTO `sys_oper_log` VALUES (25, '个人信息', 2, 'com.data.project.system.controller.SysProfileController.updatePwd()', 'PUT', 1, 'admin', NULL, '/rest/system/user/profile/updatePwd', '127.0.0.1', '内网IP', 'zhangfeng zhangfeng1', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-09-01 11:28:36');
+INSERT INTO `sys_oper_log` VALUES (26, '个人信息', 2, 'com.data.project.system.controller.SysProfileController.updatePwd()', 'PUT', 1, 'admin', NULL, '/rest/system/user/profile/updatePwd', '127.0.0.1', '内网IP', 'zhangfeng1 zhangfeng', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-09-01 11:28:48');
+INSERT INTO `sys_oper_log` VALUES (27, '个人信息', 2, 'com.data.project.system.controller.SysProfileController.updateProfile()', 'PUT', 1, 'admin', NULL, '/rest/system/user/profile', '117.36.119.62', 'XX XX', '{\"roles\":[{\"flag\":false,\"roleId\":1,\"admin\":true,\"dataScope\":\"1\",\"params\":{},\"roleSort\":\"1\",\"roleKey\":\"admin\",\"roleName\":\"系统管理员\",\"status\":\"0\"}],\"phonenumber\":\"15888888888\",\"admin\":true,\"loginDate\":1598931180000,\"remark\":\"管理员\",\"delFlag\":\"0\",\"password\":\"$2a$10$92ngqc1P014Rc02rM3nld.AYF/l7fbNkY9OtOi0rzvc/ER58.yI5y\",\"loginIp\":\"127.0.0.1\",\"email\":\"zhangjf1@gmail.com\",\"nickName\":\"系统管理员\",\"sex\":\"0\",\"deptId\":103,\"avatar\":\"/profile/avatar/2020/08/13/c5476b6dcd69dbcfd748d4191ef283b7.jpeg\",\"dept\":{\"deptName\":\"研发部门\",\"leader\":\"若依\",\"deptId\":103,\"orderNum\":\"1\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"admin\",\"userId\":1,\"createBy\":\"admin\",\"createTime\":1521171180000,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-09-01 11:43:29');
+INSERT INTO `sys_oper_log` VALUES (28, '用户头像', 2, 'com.data.project.system.controller.SysProfileController.avatar()', 'POST', 1, 'admin', NULL, '/rest/system/user/profile/avatar', '117.36.119.62', 'XX XX', '', '{\"msg\":\"操作成功\",\"imgUrl\":\"/profile/avatar/2020/09/01/6602808ec738a9003a3a0e48d2e09eda.jpeg\",\"code\":200}', 0, NULL, '2020-09-01 11:43:48');
+INSERT INTO `sys_oper_log` VALUES (29, '用户管理', 1, 'com.data.project.system.controller.SysUserController.add()', 'POST', 1, 'admin', NULL, '/rest/system/user', '127.0.0.1', '内网IP', '{\"phonenumber\":\"13677777777\",\"admin\":false,\"remark\":\"没有备注\",\"password\":\"$2a$10$GouWbubZWG03eENtLF4PT.CQ5yYAEm8TesdlWnDf5DlvuGshjySxC\",\"postIds\":[],\"email\":\"41108453@qq.com\",\"nickName\":\"测试员\",\"sex\":\"0\",\"params\":{},\"userName\":\"test\",\"userId\":100,\"createBy\":\"admin\",\"roleIds\":[2],\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-09-04 11:17:40');
+INSERT INTO `sys_oper_log` VALUES (30, '用户管理', 2, 'com.data.project.system.controller.SysUserController.changeStatus()', 'PUT', 1, 'admin', NULL, '/rest/system/user/changeStatus', '125.76.212.94', 'XX XX', '{\"admin\":false,\"updateBy\":\"admin\",\"params\":{},\"userId\":100,\"status\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-09-04 13:00:00');
+INSERT INTO `sys_oper_log` VALUES (31, '用户管理', 2, 'com.data.project.system.controller.SysUserController.changeStatus()', 'PUT', 1, 'admin', NULL, '/rest/system/user/changeStatus', '125.76.212.94', 'XX XX', '{\"admin\":false,\"updateBy\":\"admin\",\"params\":{},\"userId\":100,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2020-09-04 13:00:03');
+INSERT INTO `sys_oper_log` VALUES (32, '用户管理', 2, 'com.data.project.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', NULL, '/rest/system/user', '185.152.67.14', 'XX XX', '{\"roles\":[{\"flag\":false,\"roleId\":1,\"admin\":true,\"dataScope\":\"1\",\"params\":{},\"roleSort\":\"1\",\"roleKey\":\"admin\",\"roleName\":\"系统管理员\",\"status\":\"0\"}],\"phonenumber\":\"15888888888\",\"admin\":true,\"loginDate\":1598931180000,\"remark\":\"管理员\",\"delFlag\":\"0\",\"password\":\"\",\"postIds\":[1],\"loginIp\":\"127.0.0.1\",\"email\":\"zhangjf1@gmail.com\",\"nickName\":\"系统管理员\",\"sex\":\"0\",\"deptId\":103,\"avatar\":\"/profile/avatar/2020/09/01/6602808ec738a9003a3a0e48d2e09eda.jpeg\",\"dept\":{\"deptName\":\"研发部门\",\"leader\":\"若依\",\"deptId\":103,\"orderNum\":\"1\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"admin\",\"userId\":1,\"createBy\":\"admin\",\"roleIds\":[],\"createTime\":1598931180000,\"status\":\"0\"}', 'null', 1, '不允许操作超级管理员用户', '2020-09-05 09:22:30');
+INSERT INTO `sys_oper_log` VALUES (33, '个人信息', 2, 'com.oceanus.system.system.controller.SysProfileController.updatePwd()', 'PUT', 1, 'admin', NULL, '/rest/system/user/profile/updatePwd', '127.0.0.1', '内网IP', 'zhangfeng 123456', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2021-05-24 13:08:38');
 
 -- ----------------------------
 -- Table structure for sys_post
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_post`;
 CREATE TABLE `sys_post`  (
-  `post_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
+  `post_id` bigint NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
   `post_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '岗位编码',
   `post_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '岗位名称',
-  `post_sort` int(0) NOT NULL COMMENT '显示顺序',
+  `post_sort` int NOT NULL COMMENT '显示顺序',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '状态（0正常 1停用）',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`post_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '岗位信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '岗位信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_post
@@ -1206,20 +1595,20 @@ INSERT INTO `sys_post` VALUES (4, 'user', '普通员工', 4, '0', 'admin', '2018
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role`  (
-  `role_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '角色ID',
+  `role_id` bigint NOT NULL AUTO_INCREMENT COMMENT '角色ID',
   `role_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '角色名称',
   `role_key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '角色权限字符串',
-  `role_sort` int(0) NOT NULL COMMENT '显示顺序',
+  `role_sort` int NOT NULL COMMENT '显示顺序',
   `data_scope` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '角色状态（0正常 1停用）',
   `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role
@@ -1232,8 +1621,8 @@ INSERT INTO `sys_role` VALUES (2, '通用角色', 'common', 2, '2', '0', '0', 'a
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_dept`;
 CREATE TABLE `sys_role_dept`  (
-  `role_id` bigint(0) NOT NULL COMMENT '角色ID',
-  `dept_id` bigint(0) NOT NULL COMMENT '部门ID',
+  `role_id` bigint NOT NULL COMMENT '角色ID',
+  `dept_id` bigint NOT NULL COMMENT '部门ID',
   PRIMARY KEY (`role_id`, `dept_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色和部门关联表' ROW_FORMAT = DYNAMIC;
 
@@ -1249,8 +1638,8 @@ INSERT INTO `sys_role_dept` VALUES (2, 105);
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu`  (
-  `role_id` bigint(0) NOT NULL COMMENT '角色ID',
-  `menu_id` bigint(0) NOT NULL COMMENT '菜单ID',
+  `role_id` bigint NOT NULL COMMENT '角色ID',
+  `menu_id` bigint NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`role_id`, `menu_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色和菜单关联表' ROW_FORMAT = DYNAMIC;
 
@@ -1346,8 +1735,8 @@ INSERT INTO `sys_role_menu` VALUES (2, 1060);
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`  (
-  `user_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `dept_id` bigint(0) NULL DEFAULT NULL COMMENT '部门ID',
+  `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `dept_id` bigint NULL DEFAULT NULL COMMENT '部门ID',
   `user_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户账号',
   `nick_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户昵称',
   `user_type` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '00' COMMENT '用户类型（00系统用户）',
@@ -1359,19 +1748,19 @@ CREATE TABLE `sys_user`  (
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '帐号状态（0正常 1停用）',
   `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
   `login_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '最后登陆IP',
-  `login_date` datetime(0) NULL DEFAULT NULL COMMENT '最后登陆时间',
+  `login_date` datetime NULL DEFAULT NULL COMMENT '最后登陆时间',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 101 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '系统管理员', '00', 'zhangjf1@gmail.com', '15888888888', '0', '/profile/avatar/2020/09/01/6602808ec738a9003a3a0e48d2e09eda.jpeg', '$2a$10$92ngqc1P014Rc02rM3nld.AYF/l7fbNkY9OtOi0rzvc/ER58.yI5y', '0', '0', '127.0.0.1', '2020-09-01 11:33:00', 'admin', '2020-09-01 11:33:00', 'ry', '2020-09-01 11:43:29', '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '系统管理员', '00', 'zhangjf1@gmail.com', '15888888888', '0', '/profile/avatar/2020/09/01/6602808ec738a9003a3a0e48d2e09eda.jpeg', '$2a$10$V0BzVEKiUnWRM2lam9/Pp.SjNtb4zQ9gS3FbNVMZLHN22h4hdCvF2', '0', '0', '127.0.0.1', '2020-09-01 11:33:00', 'admin', '2020-09-01 11:33:00', 'ry', '2020-09-01 11:43:29', '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'zhangfeng', '张家峰', '00', 'zhangjf1@gmail.com', '15666666666', '1', '', '$2a$10$92ngqc1P014Rc02rM3nld.AYF/l7fbNkY9OtOi0rzvc/ER58.yI5y', '0', '0', '127.0.0.1', '2020-09-01 11:33:00', 'admin', '2020-09-01 11:33:00', 'ry', '2020-09-01 11:33:00', '测试员');
 INSERT INTO `sys_user` VALUES (100, NULL, 'test', '测试员', '00', '41108453@qq.com', '13677777777', '0', '', '$2a$10$GouWbubZWG03eENtLF4PT.CQ5yYAEm8TesdlWnDf5DlvuGshjySxC', '0', '0', '', NULL, 'admin', '2020-09-04 11:17:39', 'admin', '2020-09-04 13:00:03', '没有备注');
 
@@ -1380,8 +1769,8 @@ INSERT INTO `sys_user` VALUES (100, NULL, 'test', '测试员', '00', '41108453@q
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_post`;
 CREATE TABLE `sys_user_post`  (
-  `user_id` bigint(0) NOT NULL COMMENT '用户ID',
-  `post_id` bigint(0) NOT NULL COMMENT '岗位ID',
+  `user_id` bigint NOT NULL COMMENT '用户ID',
+  `post_id` bigint NOT NULL COMMENT '岗位ID',
   PRIMARY KEY (`user_id`, `post_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户与岗位关联表' ROW_FORMAT = DYNAMIC;
 
@@ -1396,8 +1785,8 @@ INSERT INTO `sys_user_post` VALUES (2, 2);
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role`  (
-  `user_id` bigint(0) NOT NULL COMMENT '用户ID',
-  `role_id` bigint(0) NOT NULL COMMENT '角色ID',
+  `user_id` bigint NOT NULL COMMENT '用户ID',
+  `role_id` bigint NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`user_id`, `role_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户和角色关联表' ROW_FORMAT = DYNAMIC;
 
