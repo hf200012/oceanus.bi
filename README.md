@@ -2,6 +2,10 @@
 
 这是一个可自由拖拽的BI可视化系统
 
+支持主流的关系数据：MySQL，Oracle，PostgreSQL等
+
+同时支持Apache Doris，这个一开始初衷就是为了 Doris 数据可视化分析做的
+
 后端框架使用了若依
 
 
